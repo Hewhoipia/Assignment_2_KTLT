@@ -45,11 +45,13 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
     ifstream myFile(file_armyknights);
     if (myFile.is_open()){
         myFile >> armyNum;
-        string eachKnight;
-        getline(myFile, eachKnight);
-        getline(myFile, eachKnight);
-        ifstream myKnight(eachKnight);
-
+        for (int i=1; i<=armyNum; i++){
+            string eachKnight;
+            getline(myFile, eachKnight);
+            getline(myFile, eachKnight);
+            ifstream myKnight(eachKnight);
+            readKnight(eachKnight, i);
+        }
         myFile.close();
     }
     else cout << "Cannot open the f*cking file!"<<endl;
@@ -57,12 +59,25 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
 ArmyKnights::~ArmyKnights(){
     //delete BaseKnight
 }
-void ArmyKnights::readKnight(string& eachKnight, int& id){
+void ArmyKnights::readKnight(string& eachKnight, int id){
     ifstream myK(eachKnight);
     int maxhp, level, pho, gil, anti;
     myK >> maxhp >> level >> pho >> gil >> anti;
-
+    if (head == nullptr){
+        head = BaseKnight::create (id, maxhp, level, gil, anti, pho);
+        tail=head;
+    }
+    else{
+        tail->next=BaseKnight::create (id, maxhp, level, gil, anti, pho);
+        tail->next->pre=tail;
+        tail=tail->next;
+    }
 }
+
+BaseKnight *ArmyKnights:: lastKnight() const{
+    return tail;
+}
+
 void ArmyKnights::printInfo() const {
     cout << "No. knights: " << this->count();
     if (this->count() > 0) {
@@ -97,6 +112,9 @@ void KnightAdventure::loadArmyKnights(const string & file){
 }
 void KnightAdventure::loadEvents(const string & file){
     events = new Events(file);
+}
+void KnightAdventure::run(){
+    cout << "run!!!"<<endl;
 }
 
 /* * * END implementation of class KnightAdventure * * */

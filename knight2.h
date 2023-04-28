@@ -30,11 +30,10 @@ protected:
     int antidote;
     BaseBag * bag;
     KnightType knightType;
+public:
     //addition
     BaseKnight *next=nullptr;
     BaseKnight *pre=nullptr;
-
-public:
     static BaseKnight * create(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
     string toString() const;
     //addition
@@ -53,7 +52,7 @@ public:
     bool adventure (Events * events);
     int count() const;
     BaseKnight * lastKnight() const;
-    void readKnight(string& eachKnight, int& id);
+    void readKnight(string& eachKnight, int id);
 
     bool hasPaladinShield() const;
     bool hasLancelotSpear() const;
