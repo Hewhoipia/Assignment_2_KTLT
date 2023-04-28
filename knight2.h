@@ -42,6 +42,10 @@ public:
 };
 
 class ArmyKnights {
+private:
+    int armyNum;
+    BaseKnight *head=nullptr;
+    BaseKnight *tail=nullptr;
 public:
     ArmyKnights (const string & file_armyknights);
     ~ArmyKnights();
@@ -49,6 +53,7 @@ public:
     bool adventure (Events * events);
     int count() const;
     BaseKnight * lastKnight() const;
+    void readKnight(string& eachKnight, int& id);
 
     bool hasPaladinShield() const;
     bool hasLancelotSpear() const;
@@ -66,7 +71,12 @@ public:
 };
 
 class Events {
+private:
+    int* eArr;
+    int eNum;
 public:
+    Events(const string &);
+    ~Events();
     int count() const;
     int get(int i) const;
 };

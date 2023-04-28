@@ -44,10 +44,24 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
     // Knights array
     ifstream myFile(file_armyknights);
     if (myFile.is_open()){
+        myFile >> armyNum;
+        string eachKnight;
+        getline(myFile, eachKnight);
+        getline(myFile, eachKnight);
+        ifstream myKnight(eachKnight);
 
         myFile.close();
     }
     else cout << "Cannot open the f*cking file!"<<endl;
+}
+ArmyKnights::~ArmyKnights(){
+    //delete BaseKnight
+}
+void ArmyKnights::readKnight(string& eachKnight, int& id){
+    ifstream myK(eachKnight);
+    int maxhp, level, pho, gil, anti;
+    myK >> maxhp >> level >> pho >> gil >> anti;
+
 }
 void ArmyKnights::printInfo() const {
     cout << "No. knights: " << this->count();
@@ -74,5 +88,41 @@ KnightAdventure::KnightAdventure() {
     armyKnights = nullptr;
     events = nullptr;
 }
+KnightAdventure::~KnightAdventure(){
+    delete [] armyKnights;
+    delete [] events;
+}
+void KnightAdventure::loadArmyKnights(const string & file){
+    armyKnights = new ArmyKnights(file);
+}
+void KnightAdventure::loadEvents(const string & file){
+    events = new Events(file);
+}
 
 /* * * END implementation of class KnightAdventure * * */
+
+/* * * BEGIN implementation of class Events * * */
+Events::Events(const string &file_events){
+    ifstream myFile(file_events);
+    if (myFile.is_open()){
+        myFile >> eNum;
+        string endLine;
+        getline (myFile, endLine);
+        eArr=new int();
+        for (int i=1; i<=eNum; i++){
+            myFile >> eArr[i];
+        }
+        myFile.close();
+    }
+    else cout << "Cannot open the f*cking file!"<<endl;
+}
+Events::~Events(){
+    delete [] eArr;
+}
+int Events::count() const{
+    return eNum;
+}
+int Events::get(int i) const{
+    return eArr[i];
+}
+/* * * END implementation of class Events * * */
