@@ -31,13 +31,16 @@ protected:
     BaseBag * bag;
     KnightType knightType;
 public:
-    //addition
-    BaseKnight *next=nullptr;
-    BaseKnight *pre=nullptr;
     static BaseKnight * create(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
     string toString() const;
     //addition
+    BaseKnight *next=nullptr;
+    BaseKnight *pre=nullptr;
     BaseKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
+    ~BaseKnight();
+    void checkKnight();
+    bool prime(int hacPe);
+    bool pythago(int num);
 };
 
 class ArmyKnights {

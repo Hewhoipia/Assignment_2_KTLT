@@ -13,12 +13,58 @@ BaseKnight *BaseKnight::create (int id, int maxhp, int level, int gil, int antid
 BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI){
     this->id=id;
     this->maxhp=maxhp;
+    this->hp=maxhp;
     this->level=level;
     this->gil=gil;
     this->antidote=antidote;
+    checkKnight(); // knightType
+    bag=nullptr;
     //phoenix
-    //basebag
-    //knightType
+}
+
+BaseKnight::~BaseKnight(){
+    delete [] next;
+    delete [] bag;
+}
+
+void BaseKnight::checkKnight(){
+    if (prime(hp)) {
+        knightType=PALADIN;
+        return;
+    }
+    if (hp==888){
+        knightType=LANCELOT;
+        return;
+    }
+    if(pythago(hp)){
+        knightType=DRAGON;
+        return;
+    }
+    knightType=NORMAL;
+    return;
+}
+
+bool BaseKnight::prime(int hacPe) {
+    if (hacPe < 2) {
+        return false;
+    }
+    for (int i = 2; i <= sqrt(hacPe); i++) {
+        if (hacPe % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool BaseKnight::pythago(int num){
+    if (num>999 || num<100) return false;
+    int a = num / 100;
+    int b = (num / 10) % 10;
+    int c = num % 10;
+    if (pow(c,2)==pow(a,2)+pow(b,2)) return true;
+    if (pow(b,2)==pow(a,2)+pow(c,2)) return true;
+    if (pow(a,2)==pow(c,2)+pow(b,2)) return true;
+    return false;
 }
 
 string BaseKnight::toString() const {
@@ -57,8 +103,21 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
     else cout << "Cannot open the f*cking file!"<<endl;
 }
 ArmyKnights::~ArmyKnights(){
-    //delete BaseKnight
+    delete [] head;
 }
+
+bool ArmyKnights::fight(BaseOpponent * opponent){
+    //hmm
+}
+
+bool ArmyKnights::adventure(Events *events){
+    //hmm
+}
+
+int ArmyKnights::count() const{
+    return armyNum;
+}
+
 void ArmyKnights::readKnight(string& eachKnight, int id){
     ifstream myK(eachKnight);
     int maxhp, level, pho, gil, anti;
