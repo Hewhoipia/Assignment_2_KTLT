@@ -1,8 +1,130 @@
 #include "knight2.h"
 
 /* * * BEGIN implementation of class BaseBag * * */
+class EachBag:public BaseBag{
+public:
+    BaseBag *next=nullptr;
+    bool insertFirst (BaseItem *item){
+        //hmm
+    }
+    BaseItem * get(ItemType itemType){
+        //hmm
+    }
+    string toString()const{
+        //hmm
+    }
+};
 
+class Antidote:public BaseItem{
+public:
+    bool canUse (BaseKnight *knight){
+        //check bag
+    }
+    void use ( BaseKnight * knight ){
+        //use
+    }
+    bool bePoison(BaseKnight *knight){
+        //check if the knight is poisoned
+    }
+};
+
+class PhoenixDownI:public BaseItem{
+public:
+    bool canUse (BaseKnight *knight){
+        //check bag
+    }
+    void use ( BaseKnight * knight ){
+        //use
+    }
+};
+
+class PhoenixDownII:public BaseItem{
+public:
+    bool canUse (BaseKnight *knight){
+        //check bag
+    }
+    void use ( BaseKnight * knight ){
+        //use
+    }
+};
+
+class PhoenixDownIII:public BaseItem{
+public:
+    bool canUse (BaseKnight *knight){
+        //check bag
+    }
+    void use ( BaseKnight * knight ){
+        //use
+    }
+};
+
+class PhoenixDownIV:public BaseItem{
+public:
+    bool canUse (BaseKnight *knight){
+        //check bag
+    }
+    void use ( BaseKnight * knight ){
+        //use
+    }
+};
 /* * * END implementation of class BaseBag * * */
+
+/* * * BEGIN implementation of class BaseOpponent * * */
+class MadBear:public BaseOpponent{
+public:
+    //hmm
+};
+
+class Bandit:public BaseOpponent{
+public:
+    //hmm
+};
+
+class LordLupin:public BaseOpponent{
+public:
+    //hmm
+};
+
+class Elf:public BaseOpponent{
+public:
+    //hmm
+};
+
+class Troll:public BaseOpponent{
+public:
+    //hmm
+};
+
+class Tornbery:public BaseOpponent{
+public:
+    //hmm
+};
+
+class QueenOfCards:public BaseOpponent{
+public:
+    //hmm
+};
+
+class NinaDeRings:public BaseOpponent{
+public:
+    //hmm
+};
+
+class DurianGarden:public BaseOpponent{
+public:
+    //hmm
+};
+
+class OmegaWeapon:public BaseOpponent{
+public:
+    //hmm
+};
+
+class Hades:public BaseOpponent{
+public:
+    //hmm
+};
+/* * * END implementation of class BaseOpponent * * */
 
 /* * * BEGIN implementation of class BaseKnight * * */
 BaseKnight *BaseKnight::create (int id, int maxhp, int level, int gil, int antidote, int phoenixdownI){
@@ -23,8 +145,8 @@ BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int 
 }
 
 BaseKnight::~BaseKnight(){
-    delete [] next;
     delete [] bag;
+    bag=nullptr;
 }
 
 void BaseKnight::checkKnight(){
@@ -67,6 +189,10 @@ bool BaseKnight::pythago(int num){
     return false;
 }
 
+void BaseKnight::back(){
+    //hmm
+}
+
 string BaseKnight::toString() const {
     string typeString[4] = {"PALADIN", "LANCELOT", "DRAGON", "NORMAL"};
     // inefficient version, students can change these code
@@ -81,6 +207,24 @@ string BaseKnight::toString() const {
         + ",knight_type:" + typeString[knightType]
         + "]";
     return s;
+}
+
+// class Paladin, Lancelot, Dragon, Normal
+
+bool PaladinKnight::fight(BaseOpponent * opponent){
+    //hmm
+}
+
+bool LancelotKnight::fight (BaseOpponent * opponent){
+    //hmm
+}
+
+bool DragonKnight::fight(BaseOpponent * opponent){
+    //hmm
+}
+
+bool NormalKnight::fight(BaseOpponent * opponent){
+    //hmm
 }
 
 /* * * END implementation of class BaseKnight * * */
@@ -103,15 +247,28 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
     else cout << "Cannot open the f*cking file!"<<endl;
 }
 ArmyKnights::~ArmyKnights(){
-    delete [] head;
+    BaseKnight *next=nullptr;
+    BaseKnight *tmp=head;
+    while (tmp!=nullptr){
+        next = tmp->next;
+        delete tmp;
+        tmp = next;
+    }
+    head=nullptr;
+    tail=nullptr;
 }
 
 bool ArmyKnights::fight(BaseOpponent * opponent){
-    //hmm
+    BaseKnight* curKnight = lastKnight();
+    return curKnight->fight(opponent);
 }
 
 bool ArmyKnights::adventure(Events *events){
-    //hmm
+    for (int i=1; i<=events->count(); i++){
+        int curEvent = events->get (i);
+        //do sth
+    }
+    return false; //not defeat Ultimecia
 }
 
 int ArmyKnights::count() const{
@@ -135,6 +292,22 @@ void ArmyKnights::readKnight(string& eachKnight, int id){
 
 BaseKnight *ArmyKnights:: lastKnight() const{
     return tail;
+}
+
+bool ArmyKnights::hasPaladinShield()const{
+    //hmm
+}
+
+bool ArmyKnights::hasLancelotSpear()const{
+    //hmm
+}
+
+bool ArmyKnights::hasGuinevereHair() const{
+    //hmm
+}
+
+bool ArmyKnights::hasExcaliburSword() const{
+    //hmm
 }
 
 void ArmyKnights::printInfo() const {
@@ -165,6 +338,8 @@ KnightAdventure::KnightAdventure() {
 KnightAdventure::~KnightAdventure(){
     delete [] armyKnights;
     delete [] events;
+    armyKnights=nullptr;
+    events=nullptr;
 }
 void KnightAdventure::loadArmyKnights(const string & file){
     armyKnights = new ArmyKnights(file);
@@ -195,6 +370,7 @@ Events::Events(const string &file_events){
 }
 Events::~Events(){
     delete [] eArr;
+    eArr=nullptr;
 }
 int Events::count() const{
     return eNum;

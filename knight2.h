@@ -8,7 +8,7 @@
     std::cout << "Debugging information" << std::endl;
 #endif
 
-enum ItemType {/* TODO: */};
+enum ItemType {Antidote, PhoI, PhoII, PhoIII, PhoIV};
 
 class BaseBag {
 public:
@@ -17,7 +17,10 @@ public:
     virtual string toString() const;
 };
 
-class BaseOpponent;
+class BaseOpponent{
+public:
+    //hmm
+};
 
 enum KnightType { PALADIN = 0, LANCELOT, DRAGON, NORMAL };
 class BaseKnight {
@@ -41,7 +44,33 @@ public:
     void checkKnight();
     bool prime(int hacPe);
     bool pythago(int num);
+    bool fight(BaseOpponent * opponent);
+    void back(); //delete last element of ArmyKnight
 };
+
+// Start class Paladin, Lancelot, Dragon, Normal
+
+class PaladinKnight:private BaseKnight{
+public:
+    bool fight (BaseOpponent * opponent);
+};
+
+class LancelotKnight:private BaseKnight{
+public:
+    bool fight (BaseOpponent * opponent);
+};
+
+class DragonKnight:private BaseKnight{
+public:
+    bool fight (BaseOpponent * opponent);
+};
+
+class NormalKnight:private BaseKnight{
+public:
+    bool fight (BaseOpponent * opponent);
+};
+
+// End class Paladin, Lancelot, Dragon, Normal
 
 class ArmyKnights {
 private:
@@ -74,7 +103,7 @@ public:
 
 class Events {
 private:
-    int* eArr;
+    int* eArr=nullptr;
     int eNum;
 public:
     Events(const string &);
