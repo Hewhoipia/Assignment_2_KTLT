@@ -3,9 +3,27 @@
 /* * * BEGIN implementation of class BaseBag * * */
 class EachBag:public BaseBag{
 public:
-    BaseBag *next=nullptr;
+    int nItem;
+    int curItems=0;
+    BaseItem *head=nullptr;
+    ~EachBag(){
+        /*BaseItem *next=nullptr;
+        BaseItem *tmp=head;
+        while (tmp!=nullptr){
+        next = tmp->next;
+        delete tmp;
+        tmp = next;
+        }
+        head=nullptr;*/
+    }
+    bool canInsert(BaseItem *item);
     bool insertFirst (BaseItem *item){
-        //hmm
+        if (canInsert(item)){
+            //hmm
+        }
+        else {
+            //hmm
+        }
     }
     BaseItem * get(ItemType itemType){
         //hmm
@@ -15,6 +33,55 @@ public:
     }
 };
 
+class DBag:public EachBag{ // DRAGON Bag
+public:
+    DBag(){
+        nItem=14;
+    }
+    bool canInsert (BaseItem *item){
+        if (curItems < nItem && item->type!=Antidote) return true;
+        return false;
+    }
+    //hmm
+};
+
+class LBag:public EachBag{ // LANCELOT Bag
+public:
+    LBag(){
+        nItem=16;
+    }
+    bool canInsert (BaseItem *item){
+        if (curItems < nItem) return true;
+        return false;
+    }
+    //hmm
+};
+
+class NBag:public EachBag{ // NORMAL Bag
+public:
+    NBag(){
+        nItem=19;
+    }
+    bool canInsert (BaseItem *item){
+        if (curItems < nItem) return true;
+        return false;
+    }
+    //hmm
+};
+
+class PBag:public EachBag{ // PALADIN Bag
+public:
+    PBag(){
+        nItem=999999;
+    }
+    bool canInsert (BaseItem *item){
+        return true;
+    }
+    //hmm
+};
+/* * * END implementation of class BaseBag * * */
+
+/* * * BEGIN implementation of class BaseItem * * */
 class Antidote:public BaseItem{
 public:
     bool canUse (BaseKnight *knight){
@@ -67,7 +134,7 @@ public:
         //use
     }
 };
-/* * * END implementation of class BaseBag * * */
+/* * * END implementation of class BaseItem * * */
 
 /* * * BEGIN implementation of class BaseOpponent * * */
 class MadBear:public BaseOpponent{
@@ -349,6 +416,7 @@ void KnightAdventure::loadEvents(const string & file){
 }
 void KnightAdventure::run(){
     cout << "run!!!"<<endl;
+    armyKnights->printInfo();
 }
 
 /* * * END implementation of class KnightAdventure * * */
@@ -377,5 +445,11 @@ int Events::count() const{
 }
 int Events::get(int i) const{
     return eArr[i];
+}
+void Events::printEvent() const{
+    for (int i=1; i<=eNum; i++){
+        cout << eArr[i] << " ";
+    }
+    cout << endl;
 }
 /* * * END implementation of class Events * * */

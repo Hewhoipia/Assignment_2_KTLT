@@ -97,6 +97,8 @@ public:
 
 class BaseItem {
 public:
+    BaseItem *next=nullptr;
+    ItemType type;
     virtual bool canUse ( BaseKnight * knight ) = 0;
     virtual void use ( BaseKnight * knight ) = 0;
 };
@@ -110,6 +112,7 @@ public:
     ~Events();
     int count() const;
     int get(int i) const;
+    void printEvent() const;
 };
 
 class KnightAdventure {
