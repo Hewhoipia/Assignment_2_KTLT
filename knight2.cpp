@@ -56,6 +56,7 @@ public:
     }
     bool insertFirst (BaseItem *item){
         //hmm
+        return 1;
     }
 };
 
@@ -66,6 +67,7 @@ public:
     }
     bool insertFirst (BaseItem *item){
         //hmm
+        return 1;
     }
 };
 
@@ -76,6 +78,7 @@ public:
     }
     bool insertFirst (BaseItem *item){
         //hmm
+        return 1;
     }
 };
 
@@ -86,6 +89,7 @@ public:
     }
     bool insertFirst (BaseItem *item){
         //hmm
+        return 1;
     }
 };
 /* * * END implementation of class BaseBag * * */
@@ -95,12 +99,15 @@ class Antidote:public BaseItem{
 public:
     bool canUse (BaseKnight *knight){
         //check bag
+        return 1;
     }
     void use ( BaseKnight * knight ){
         //use
+        return 1;
     }
     bool bePoison(BaseKnight *knight){
         //check if the knight is poisoned
+        return 1;
     }
 };
 
@@ -108,6 +115,7 @@ class PhoenixDownI:public BaseItem{
 public:
     bool canUse (BaseKnight *knight){
         //check bag
+        return 1;
     }
     void use ( BaseKnight * knight ){
         //use
@@ -118,6 +126,7 @@ class PhoenixDownII:public BaseItem{
 public:
     bool canUse (BaseKnight *knight){
         //check bag
+        return 1;
     }
     void use ( BaseKnight * knight ){
         //use
@@ -128,6 +137,7 @@ class PhoenixDownIII:public BaseItem{
 public:
     bool canUse (BaseKnight *knight){
         //check bag
+        return 1;
     }
     void use ( BaseKnight * knight ){
         //use
@@ -138,6 +148,7 @@ class PhoenixDownIV:public BaseItem{
 public:
     bool canUse (BaseKnight *knight){
         //check bag
+        return 1;
     }
     void use ( BaseKnight * knight ){
         //use
