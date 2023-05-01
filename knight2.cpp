@@ -395,6 +395,14 @@ void ArmyKnights::printResult(bool win) const {
     cout << (win ? "WIN" : "LOSE") << endl;
 }
 
+void ArmyKnights::printALL() const{
+    BaseKnight *tmp=head;
+    while (tmp!=nullptr){
+        cout << tmp->toString() << endl;
+        tmp=tmp->next;
+    }
+}
+
 /* * * END implementation of class ArmyKnights * * */
 
 /* * * BEGIN implementation of class KnightAdventure * * */
@@ -416,7 +424,7 @@ void KnightAdventure::loadEvents(const string & file){
 }
 void KnightAdventure::run(){
     cout << "run!!!"<<endl;
-    armyKnights->printInfo();
+    armyKnights->printALL();
 }
 
 /* * * END implementation of class KnightAdventure * * */

@@ -108,6 +108,7 @@ public:
 
     void printInfo() const;
     void printResult(bool win) const;
+    void printALL() const;
 };
 
 class BaseItem {
