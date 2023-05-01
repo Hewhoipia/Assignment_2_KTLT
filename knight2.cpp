@@ -271,18 +271,22 @@ string BaseKnight::toString() const {
 
 bool PaladinKnight::fight(BaseOpponent * opponent){
     //hmm
+    return 1;
 }
 
 bool LancelotKnight::fight (BaseOpponent * opponent){
     //hmm
+    return 1;
 }
 
 bool DragonKnight::fight(BaseOpponent * opponent){
     //hmm
+    return 1;
 }
 
 bool NormalKnight::fight(BaseOpponent * opponent){
     //hmm
+    return 1;
 }
 
 /* * * END implementation of class BaseKnight * * */
@@ -354,18 +358,22 @@ BaseKnight *ArmyKnights:: lastKnight() const{
 
 bool ArmyKnights::hasPaladinShield()const{
     //hmm
+    return 1;
 }
 
 bool ArmyKnights::hasLancelotSpear()const{
     //hmm
+    return 1;
 }
 
 bool ArmyKnights::hasGuinevereHair() const{
     //hmm
+    return 1;
 }
 
 bool ArmyKnights::hasExcaliburSword() const{
     //hmm
+    return 1;
 }
 
 void ArmyKnights::printInfo() const {
