@@ -43,9 +43,11 @@ public:
     virtual bool insertFirst (BaseItem *item)=0;
     BaseItem * get(ItemType itemType){
         //hmm
+        return nullptr;
     }
     string toString()const{
         //hmm
+        return "haha";
     }
 };
 
@@ -103,7 +105,6 @@ public:
     }
     void use ( BaseKnight * knight ){
         //use
-        return 1;
     }
     bool bePoison(BaseKnight *knight){
         //check if the knight is poisoned
