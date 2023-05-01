@@ -1,5 +1,29 @@
 #include "knight2.h"
 
+//some support functions
+static bool prime(int hacPe) {
+    if (hacPe < 2) {
+        return false;
+    }
+    for (int i = 2; i <= sqrt(hacPe); i++) {
+        if (hacPe % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+static bool pythago(int num){
+    if (num>999 || num<100) return false;
+    int a = num / 100;
+    int b = (num / 10) % 10;
+    int c = num % 10;
+    if (pow(c,2)==pow(a,2)+pow(b,2)) return true;
+    if (pow(b,2)==pow(a,2)+pow(c,2)) return true;
+    if (pow(a,2)==pow(c,2)+pow(b,2)) return true;
+    return false;
+}
+
 /* * * BEGIN implementation of class BaseBag * * */
 class EachBag:public BaseBag{
 public:
@@ -195,7 +219,20 @@ public:
 
 /* * * BEGIN implementation of class BaseKnight * * */
 BaseKnight *BaseKnight::create (int id, int maxhp, int level, int gil, int antidote, int phoenixdownI){
-    BaseKnight *hold = new BaseKnight (id, maxhp, level, gil, antidote, phoenixdownI);
+    if (prime(maxhp)) {
+        BaseKnight *hold = new PaladinKnight(id, maxhp, level, gil, antidote, phoenixdownI);
+    }
+    else if (hp==888){
+        knightType=LANCELOT;
+        return;
+    }
+    else if(pythago(hp)){
+        knightType=DRAGON;
+        return;
+    }
+    else{
+        knightType=NORMAL;
+    }
     return hold;
 }
 
@@ -206,7 +243,7 @@ BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int 
     this->level=level;
     this->gil=gil;
     this->antidote=antidote;
-    checkKnight(); // knightType
+    // knightType
     bag=nullptr;
     //phoenix
 }
@@ -214,46 +251,6 @@ BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int 
 BaseKnight::~BaseKnight(){
     delete [] bag;
     bag=nullptr;
-}
-
-void BaseKnight::checkKnight(){
-    if (prime(hp)) {
-        knightType=PALADIN;
-        return;
-    }
-    if (hp==888){
-        knightType=LANCELOT;
-        return;
-    }
-    if(pythago(hp)){
-        knightType=DRAGON;
-        return;
-    }
-    knightType=NORMAL;
-    return;
-}
-
-bool BaseKnight::prime(int hacPe) {
-    if (hacPe < 2) {
-        return false;
-    }
-    for (int i = 2; i <= sqrt(hacPe); i++) {
-        if (hacPe % i == 0) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool BaseKnight::pythago(int num){
-    if (num>999 || num<100) return false;
-    int a = num / 100;
-    int b = (num / 10) % 10;
-    int c = num % 10;
-    if (pow(c,2)==pow(a,2)+pow(b,2)) return true;
-    if (pow(b,2)==pow(a,2)+pow(c,2)) return true;
-    if (pow(a,2)==pow(c,2)+pow(b,2)) return true;
-    return false;
 }
 
 void BaseKnight::back(){
@@ -330,7 +327,7 @@ bool ArmyKnights::fight(BaseOpponent * opponent){
     return curKnight->fight(opponent);
 }
 
-bool ArmyKnights::adventure(Events *events){
+bool ArmyKnights::adventure(Events * events){
     for (int i=1; i<=events->count(); i++){
         int curEvent = events->get (i);
         //do sth

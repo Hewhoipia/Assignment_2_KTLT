@@ -4,12 +4,14 @@
 #include "main.h"
 
 // #define DEBUG
-#ifdef DEBUG
-    std::cout << "Debugging information" << std::endl;
-#endif
 
 enum ItemType {Antidote, PhoI, PhoII, PhoIII, PhoIV};
 
+// some support functions
+static bool prime(int hacPe);
+static bool pythago(int num);
+
+class BaseItem;
 class BaseBag {
 public:
     virtual bool insertFirst(BaseItem * item);
@@ -19,7 +21,7 @@ public:
 
 class BaseOpponent{
 public:
-    //hmm
+    virtual void blabla()=0;
 };
 
 enum KnightType { PALADIN = 0, LANCELOT, DRAGON, NORMAL };
@@ -41,17 +43,17 @@ public:
     BaseKnight *pre=nullptr;
     BaseKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
     ~BaseKnight();
-    void checkKnight();
-    bool prime(int hacPe);
-    bool pythago(int num);
-    bool fight(BaseOpponent * opponent);
+    virtual bool fight(BaseOpponent * opponent)=0;
     void back(); //delete last element of ArmyKnight
 };
 
-// Start class Paladin, Lancelot, Dragon, Normal
 
+// Start class Paladin, Lancelot, Dragon, Normal
 class PaladinKnight:private BaseKnight{
 public:
+    PaladinKnight(){
+        
+    }
     bool fight (BaseOpponent * opponent);
 };
 
@@ -69,9 +71,9 @@ class NormalKnight:private BaseKnight{
 public:
     bool fight (BaseOpponent * opponent);
 };
-
 // End class Paladin, Lancelot, Dragon, Normal
 
+class Events;
 class ArmyKnights {
 private:
     int armyNum;
