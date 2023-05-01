@@ -40,9 +40,7 @@ public:
         }
         head=nullptr;*/
     }
-    bool insertFirst (BaseItem *item){
-        //hmm
-    }
+    virtual bool insertFirst (BaseItem *item)=0;
     BaseItem * get(ItemType itemType){
         //hmm
     }
@@ -56,7 +54,9 @@ public:
     DBag(){
         nItem=14;
     }
-    //hmm
+    bool insertFirst (BaseItem *item){
+        //hmm
+    }
 };
 
 class LBag:public EachBag{ // LANCELOT Bag
@@ -64,7 +64,9 @@ public:
     LBag(){
         nItem=16;
     }
-    //hmm
+    bool insertFirst (BaseItem *item){
+        //hmm
+    }
 };
 
 class NBag:public EachBag{ // NORMAL Bag
@@ -72,15 +74,19 @@ public:
     NBag(){
         nItem=19;
     }
-    //hmm
+    bool insertFirst (BaseItem *item){
+        //hmm
+    }
 };
 
 class PBag:public EachBag{ // PALADIN Bag
 public:
     PBag(){
-        nItem=999999;
+        nItem=-1; // infinite number
     }
-    //hmm
+    bool insertFirst (BaseItem *item){
+        //hmm
+    }
 };
 /* * * END implementation of class BaseBag * * */
 
@@ -222,8 +228,7 @@ BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int 
     this->gil=gil;
     this->antidote=antidote;
     // knightType
-    bag=nullptr;
-    //phoenix
+    //bag
 }
 
 BaseKnight::~BaseKnight(){
