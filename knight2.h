@@ -49,26 +49,35 @@ public:
 
 
 // Start class Paladin, Lancelot, Dragon, Normal
-class PaladinKnight:private BaseKnight{
+class PaladinKnight:public BaseKnight{
 public:
-    PaladinKnight(){
+    PaladinKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
+        knightType=PALADIN;
+    }
+    bool fight (BaseOpponent * opponent);
+};
+
+class LancelotKnight:public BaseKnight{
+public:
+    LancelotKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
         
     }
     bool fight (BaseOpponent * opponent);
 };
 
-class LancelotKnight:private BaseKnight{
+class DragonKnight:public BaseKnight{
 public:
+    DragonKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
+        
+    }
     bool fight (BaseOpponent * opponent);
 };
 
-class DragonKnight:private BaseKnight{
+class NormalKnight:public BaseKnight{
 public:
-    bool fight (BaseOpponent * opponent);
-};
-
-class NormalKnight:private BaseKnight{
-public:
+    NormalKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
+        
+    }
     bool fight (BaseOpponent * opponent);
 };
 // End class Paladin, Lancelot, Dragon, Normal

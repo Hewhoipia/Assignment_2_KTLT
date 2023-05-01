@@ -219,19 +219,18 @@ public:
 
 /* * * BEGIN implementation of class BaseKnight * * */
 BaseKnight *BaseKnight::create (int id, int maxhp, int level, int gil, int antidote, int phoenixdownI){
+    BaseKnight *hold=nullptr;
     if (prime(maxhp)) {
-        BaseKnight *hold = new PaladinKnight(id, maxhp, level, gil, antidote, phoenixdownI);
+        hold = new PaladinKnight(id, maxhp, level, gil, antidote, phoenixdownI);
     }
-    else if (hp==888){
-        knightType=LANCELOT;
-        return;
+    else if (maxhp==888){
+        hold = new LancelotKnight(id, maxhp, level, gil, antidote, phoenixdownI);
     }
-    else if(pythago(hp)){
-        knightType=DRAGON;
-        return;
+    else if(pythago(maxhp)){
+        hold = new DragonKnight(id, maxhp, level, gil, antidote, phoenixdownI);
     }
     else{
-        knightType=NORMAL;
+        hold = new NormalKnight(id, maxhp, level, gil, antidote, phoenixdownI);
     }
     return hold;
 }
