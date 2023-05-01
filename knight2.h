@@ -60,7 +60,7 @@ public:
 class LancelotKnight:public BaseKnight{
 public:
     LancelotKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
-        
+        knightType=LANCELOT;
     }
     bool fight (BaseOpponent * opponent);
 };
@@ -68,7 +68,7 @@ public:
 class DragonKnight:public BaseKnight{
 public:
     DragonKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
-        
+        knightType=DRAGON;
     }
     bool fight (BaseOpponent * opponent);
 };
@@ -76,7 +76,7 @@ public:
 class NormalKnight:public BaseKnight{
 public:
     NormalKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
-        
+        knightType=NORMAL;
     }
     bool fight (BaseOpponent * opponent);
 };

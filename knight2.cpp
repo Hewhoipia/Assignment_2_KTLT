@@ -40,14 +40,8 @@ public:
         }
         head=nullptr;*/
     }
-    bool canInsert(BaseItem *item);
     bool insertFirst (BaseItem *item){
-        if (canInsert(item)){
-            //hmm
-        }
-        else {
-            //hmm
-        }
+        //hmm
     }
     BaseItem * get(ItemType itemType){
         //hmm
@@ -62,10 +56,6 @@ public:
     DBag(){
         nItem=14;
     }
-    bool canInsert (BaseItem *item){
-        if (curItems < nItem && item->type!=Antidote) return true;
-        return false;
-    }
     //hmm
 };
 
@@ -73,10 +63,6 @@ class LBag:public EachBag{ // LANCELOT Bag
 public:
     LBag(){
         nItem=16;
-    }
-    bool canInsert (BaseItem *item){
-        if (curItems < nItem) return true;
-        return false;
     }
     //hmm
 };
@@ -86,10 +72,6 @@ public:
     NBag(){
         nItem=19;
     }
-    bool canInsert (BaseItem *item){
-        if (curItems < nItem) return true;
-        return false;
-    }
     //hmm
 };
 
@@ -97,9 +79,6 @@ class PBag:public EachBag{ // PALADIN Bag
 public:
     PBag(){
         nItem=999999;
-    }
-    bool canInsert (BaseItem *item){
-        return true;
     }
     //hmm
 };
