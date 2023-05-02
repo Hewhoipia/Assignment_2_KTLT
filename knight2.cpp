@@ -269,10 +269,21 @@ string BaseKnight::toString() const {
 }
 
 // class Paladin, Lancelot, Dragon, Normal
+PaladinKnight::PaladinKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
+    knightType=PALADIN;
+    //bag
+    bag=new PBag ();
+}
 
 bool PaladinKnight::fight(BaseOpponent * opponent){
     //hmm
     return 1;
+}
+
+LancelotKnight::LancelotKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
+    knightType=LANCELOT;
+    //bag
+    bag=new LBag();
 }
 
 bool LancelotKnight::fight (BaseOpponent * opponent){
@@ -280,9 +291,21 @@ bool LancelotKnight::fight (BaseOpponent * opponent){
     return 1;
 }
 
+DragonKnight::DragonKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
+    knightType=DRAGON;
+    //bag
+    bag=new DBag();
+}
+
 bool DragonKnight::fight(BaseOpponent * opponent){
     //hmm
     return 1;
+}
+
+NormalKnight::NormalKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
+    knightType=NORMAL;
+    //bag
+    bag = new 
 }
 
 bool NormalKnight::fight(BaseOpponent * opponent){
