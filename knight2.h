@@ -14,23 +14,12 @@ static bool pythago(int num);
 class BaseItem;
 class BaseBag {
 protected:
-    
-public:
     int nItem;
     int curItems=0;
     BaseItem *head=nullptr;
-    virtual ~BaseBag(){
-        /*BaseItem *next=nullptr;
-        BaseItem *tmp=head;
-        while (tmp!=nullptr){
-        next = tmp->next;
-        delete tmp;
-        tmp = next;
-        }
-        head=nullptr;*/
-        cout << "deleted Items\n";
-    }
-    virtual bool insertFirst(BaseItem * item);
+public:
+    ~BaseBag();
+    virtual bool insertFirst(BaseItem * item)=0;
     virtual BaseItem * get(ItemType itemType);
     virtual string toString() const;
 };

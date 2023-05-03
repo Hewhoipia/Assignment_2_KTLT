@@ -33,6 +33,18 @@ string BaseBag::toString()const{
     return "haha\n";
 }
 
+BaseBag::~BaseBag(){
+    /*BaseItem *next=nullptr;
+    BaseItem *tmp=head;
+    while (tmp!=nullptr){
+    next = tmp->next;
+    delete tmp;
+    tmp = next;
+    }
+    head=nullptr;*/
+    cout << "deleted Items\n";
+}
+
 // class DBag
     DBag::DBag(){
         nItem=14;
