@@ -328,7 +328,7 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
     else cout << "Cannot open the f*cking file!"<<endl;
 }
 ArmyKnights::~ArmyKnights(){
-    BaseKnight *next=nullptr;
+    /*BaseKnight *next=nullptr;
     BaseKnight *tmp=head;
     while (tmp!=nullptr){
         next = tmp->next;
@@ -336,7 +336,10 @@ ArmyKnights::~ArmyKnights(){
         tmp = next;
     }
     head=nullptr;
-    tail=nullptr;
+    tail=nullptr;*/
+    BaseKnight *tmp=head;
+    delete tmp;
+    head=nullptr;
 }
 
 bool ArmyKnights::fight(BaseOpponent * opponent){
