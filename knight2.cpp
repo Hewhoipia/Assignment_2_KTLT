@@ -360,7 +360,7 @@ int ArmyKnights::count() const{
     return armyNum;
 }
 
-void ArmyKnights::readKnight(string& eachKnight, int id){
+void ArmyKnights::readKnight(string eachKnight, int id){
     ifstream myK(eachKnight);
     int maxhp, level, pho, gil, anti;
     myK >> maxhp >> level >> pho >> gil >> anti;

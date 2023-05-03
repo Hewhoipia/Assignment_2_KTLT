@@ -119,7 +119,7 @@ public:
     bool adventure (Events * events);
     int count() const;
     BaseKnight * lastKnight() const;
-    void readKnight(string& eachKnight, int id);
+    void readKnight(string eachKnight, int id);
 
     bool hasPaladinShield() const;
     bool hasLancelotSpear() const;
