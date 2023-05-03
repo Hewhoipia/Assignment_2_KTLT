@@ -27,6 +27,7 @@ public:
         tmp = next;
         }
         head=nullptr;*/
+        cout << "deleted Items\n";
     }
     virtual bool insertFirst(BaseItem * item);
     virtual BaseItem * get(ItemType itemType);
