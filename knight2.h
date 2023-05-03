@@ -30,24 +30,28 @@ class DBag:public BaseBag{ // DRAGON Bag
 public:
     DBag();
     bool insertFirst (BaseItem *item)override;
+    string toString()const override;
 };
 
 class LBag:public BaseBag{ // LANCELOT Bag
 public:
     LBag();
     bool insertFirst (BaseItem *item)override;
+    string toString()const override;
 };
 
 class NBag:public BaseBag{ // NORMAL Bag
 public:
     NBag();
     bool insertFirst (BaseItem *item)override;
+    string toString()const override;
 };
 
 class PBag:public BaseBag{ // PALADIN Bag
 public:
     PBag();
     bool insertFirst (BaseItem *item)override;
+    string toString()const override;
 };
 // Derived class for BaseBag
 

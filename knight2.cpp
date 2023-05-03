@@ -30,7 +30,7 @@ BaseItem* BaseBag::get(ItemType itemType){
 }
 
 string BaseBag::toString()const{
-    return "haha\n";
+    return "bag";
 }
 
 BaseBag::BaseBag(){
@@ -59,6 +59,9 @@ BaseBag::~BaseBag(){
         //hmm
         return 1;
     }
+    string DBag::toString()const{
+        return "DBag";
+    }
 
 //class LBag
     LBag::LBag(){
@@ -68,6 +71,9 @@ BaseBag::~BaseBag(){
     bool LBag::insertFirst (BaseItem *item){
         //hmm
         return 1;
+    }
+    string LBag::toString()const{
+        return "LBag";
     }
 
 //class NBag
@@ -79,6 +85,9 @@ BaseBag::~BaseBag(){
         //hmm
         return 1;
     }
+    string NBag::toString()const{
+        return "NBag";
+    }
 
 //class PBag
     PBag::PBag(){
@@ -88,6 +97,9 @@ BaseBag::~BaseBag(){
     bool PBag::insertFirst (BaseItem *item){
         //hmm
         return 1;
+    }
+    string PBag::toString()const{
+        return "PBag";
     }
 /* * * END implementation of class BaseBag * * */
 
@@ -241,6 +253,7 @@ BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int 
 BaseKnight::~BaseKnight(){
     delete bag;
     bag=nullptr;
+    cout << "deleted BaseKnight"<<endl;
 }
 
 void BaseKnight::back(){
@@ -338,6 +351,7 @@ ArmyKnights::~ArmyKnights(){
     BaseKnight *tmp=head;
     delete tmp;
     head=nullptr;
+    cout << "deleted ArmyKnight"<<endl;
 }
 
 bool ArmyKnights::fight(BaseOpponent * opponent){
@@ -359,10 +373,8 @@ int ArmyKnights::count() const{
 
 void ArmyKnights::readKnight(string eachKnight, int id){
     stringstream myK(eachKnight);
-    cout << eachKnight << endl;
     int maxhp, level, pho, gil, anti;
     myK >> maxhp >> level >> pho >> gil >> anti;
-    cout << id << " " << maxhp << " " << level << " " << pho << " " << gil << " " << anti << endl;
     if (head == nullptr){
         head = BaseKnight::create (id, maxhp, level, gil, anti, pho);
         tail=head;
@@ -460,7 +472,9 @@ Events::Events(const string &file_events){
         eArr=new int();
         for (int i=1; i<=eNum; i++){
             myFile >> eArr[i];
+            cout << eArr[i] << " ";
         }
+        cout << endl;
         myFile.close();
     }
     else cout << "Cannot open the f*cking file!"<<endl;
@@ -468,6 +482,7 @@ Events::Events(const string &file_events){
 Events::~Events(){
     delete [] eArr;
     eArr=nullptr;
+    cout << "deleted Event"<<endl;
 }
 int Events::count() const{
     return eNum;
