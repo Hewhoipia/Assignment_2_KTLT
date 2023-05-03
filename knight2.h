@@ -18,7 +18,7 @@ protected:
     int curItems=0;
     BaseItem *head=nullptr;
 public:
-    ~BaseBag(){
+    virtual ~BaseBag(){
         /*BaseItem *next=nullptr;
         BaseItem *tmp=head;
         while (tmp!=nullptr){
