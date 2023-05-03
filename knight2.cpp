@@ -47,7 +47,7 @@ BaseBag::~BaseBag(){
     tmp = next;
     }
     head=nullptr;*/
-    cout << "deleted Items\n";
+    cout << "deleted Bag\n";
 }
 
 // class DBag
@@ -104,6 +104,9 @@ BaseBag::~BaseBag(){
 /* * * END implementation of class BaseBag * * */
 
 /* * * BEGIN implementation of class BaseItem * * */
+BaseItem::~BaseItem(){
+    cout << "deleted Item"<<endl;
+}
 class Antidote:public BaseItem{
 public:
     bool canUse (BaseKnight *knight){
@@ -348,6 +351,7 @@ ArmyKnights::~ArmyKnights(){
     }
     head=nullptr;
     tail=nullptr;
+    cout << "deleted ArmyKnight"<<endl;
 }
 
 bool ArmyKnights::fight(BaseOpponent * opponent){

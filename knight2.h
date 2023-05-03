@@ -137,6 +137,7 @@ public:
 
 class BaseItem {
 public:
+    ~BaseItem();
     BaseItem *next=nullptr;
     ItemType type;
     virtual bool canUse ( BaseKnight * knight ) = 0;
