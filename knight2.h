@@ -15,9 +15,10 @@ class BaseItem;
 class BaseBag {
 protected:
     int nItem;
-    int curItems=0;
-    BaseItem *head=nullptr;
+    int curItems;
+    BaseItem *head;
 public:
+    BaseBag();
     ~BaseBag();
     virtual bool insertFirst(BaseItem * item)=0;
     virtual BaseItem * get(ItemType itemType);

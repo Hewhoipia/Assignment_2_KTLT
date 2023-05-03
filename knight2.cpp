@@ -48,6 +48,7 @@ BaseBag::~BaseBag(){
 // class DBag
     DBag::DBag(){
         nItem=14;
+        head=nullptr;
     }
     bool DBag::insertFirst (BaseItem *item){
         //hmm
@@ -57,6 +58,7 @@ BaseBag::~BaseBag(){
 //class LBag
     LBag::LBag(){
         nItem=16;
+        head=nullptr;
     }
     bool LBag::insertFirst (BaseItem *item){
         //hmm
@@ -66,6 +68,7 @@ BaseBag::~BaseBag(){
 //class NBag
     NBag::NBag(){
         nItem=19;
+        head=nullptr;
     }
     bool NBag::insertFirst (BaseItem *item){
         //hmm
@@ -75,6 +78,7 @@ BaseBag::~BaseBag(){
 //class PBag
     PBag::PBag(){
         nItem=-1; // infinite number
+        head=nullptr;
     }
     bool PBag::insertFirst (BaseItem *item){
         //hmm
