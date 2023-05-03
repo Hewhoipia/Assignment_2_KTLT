@@ -13,7 +13,21 @@ static bool pythago(int num);
 
 class BaseItem;
 class BaseBag {
+protected:
+    int nItem;
+    int curItems=0;
+    BaseItem *head=nullptr;
 public:
+    ~BaseBag(){
+        /*BaseItem *next=nullptr;
+        BaseItem *tmp=head;
+        while (tmp!=nullptr){
+        next = tmp->next;
+        delete tmp;
+        tmp = next;
+        }
+        head=nullptr;*/
+    }
     virtual bool insertFirst(BaseItem * item);
     virtual BaseItem * get(ItemType itemType);
     virtual string toString() const;

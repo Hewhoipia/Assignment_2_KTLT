@@ -25,33 +25,15 @@ static bool pythago(int num){
 }
 
 /* * * BEGIN implementation of class BaseBag * * */
-class EachBag:public BaseBag{
-public:
-    int nItem;
-    int curItems=0;
-    BaseItem *head=nullptr;
-    ~EachBag(){
-        /*BaseItem *next=nullptr;
-        BaseItem *tmp=head;
-        while (tmp!=nullptr){
-        next = tmp->next;
-        delete tmp;
-        tmp = next;
-        }
-        head=nullptr;*/
-    }
-    virtual bool insertFirst (BaseItem *item)=0;
-    BaseItem * get(ItemType itemType){
-        //hmm
-        return nullptr;
-    }
-    string toString()const{
-        //hmm
-        return "haha";
-    }
-};
+BaseItem BaseBag::*get(ItemType itemType){
+    return nullptr;
+}
 
-class DBag:public EachBag{ // DRAGON Bag
+string BaseBag::toString()const{
+    return "haha\n";
+}
+
+class DBag:public BaseBag{ // DRAGON Bag
 public:
     DBag(){
         nItem=14;
@@ -62,7 +44,7 @@ public:
     }
 };
 
-class LBag:public EachBag{ // LANCELOT Bag
+class LBag:public BaseBag{ // LANCELOT Bag
 public:
     LBag(){
         nItem=16;
@@ -73,7 +55,7 @@ public:
     }
 };
 
-class NBag:public EachBag{ // NORMAL Bag
+class NBag:public BaseBag{ // NORMAL Bag
 public:
     NBag(){
         nItem=19;
@@ -84,7 +66,7 @@ public:
     }
 };
 
-class PBag:public EachBag{ // PALADIN Bag
+class PBag:public BaseBag{ // PALADIN Bag
 public:
     PBag(){
         nItem=-1; // infinite number
