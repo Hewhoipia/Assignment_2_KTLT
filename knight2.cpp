@@ -239,7 +239,7 @@ BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int 
 }
 
 BaseKnight::~BaseKnight(){
-    delete [] bag;
+    delete bag;
     bag=nullptr;
 }
 
@@ -332,13 +332,13 @@ ArmyKnights::~ArmyKnights(){
     BaseKnight *tmp=head;
     while (tmp!=nullptr){
         next = tmp->next;
-        delete [] tmp;
+        delete tmp;
         tmp = next;
     }
     head=nullptr;
     tail=nullptr;*/
     BaseKnight *tmp=head;
-    delete [] tmp;
+    delete tmp;
     head=nullptr;
 }
 
@@ -432,8 +432,8 @@ KnightAdventure::KnightAdventure() {
     events = nullptr;
 }
 KnightAdventure::~KnightAdventure(){
-    delete [] armyKnights;
-    delete [] events;
+    delete armyKnights;
+    delete events;
     armyKnights=nullptr;
     events=nullptr;
 }
