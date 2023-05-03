@@ -33,6 +33,11 @@ string BaseBag::toString()const{
     return "haha\n";
 }
 
+BaseBag::BaseBag(){
+    nItem=curItems=0;
+    head=nullptr;
+}
+
 BaseBag::~BaseBag(){
     /*BaseItem *next=nullptr;
     BaseItem *tmp=head;

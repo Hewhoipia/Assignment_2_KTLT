@@ -19,7 +19,7 @@ protected:
     BaseItem *head;
 public:
     BaseBag();
-    ~BaseBag();
+    virtual ~BaseBag();
     virtual bool insertFirst(BaseItem * item)=0;
     virtual BaseItem * get(ItemType itemType);
     virtual string toString() const;
@@ -29,25 +29,25 @@ public:
 class DBag:public BaseBag{ // DRAGON Bag
 public:
     DBag();
-    bool insertFirst (BaseItem *item);
+    bool insertFirst (BaseItem *item)override;
 };
 
 class LBag:public BaseBag{ // LANCELOT Bag
 public:
     LBag();
-    bool insertFirst (BaseItem *item);
+    bool insertFirst (BaseItem *item)override;
 };
 
 class NBag:public BaseBag{ // NORMAL Bag
 public:
     NBag();
-    bool insertFirst (BaseItem *item);
+    bool insertFirst (BaseItem *item)override;
 };
 
 class PBag:public BaseBag{ // PALADIN Bag
 public:
     PBag();
-    bool insertFirst (BaseItem *item);
+    bool insertFirst (BaseItem *item)override;
 };
 // Derived class for BaseBag
 
