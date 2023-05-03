@@ -19,14 +19,14 @@ protected:
     BaseItem *head=nullptr;
 public:
     ~BaseBag(){
-        /*BaseItem *next=nullptr;
+        BaseItem *next=nullptr;
         BaseItem *tmp=head;
         while (tmp!=nullptr){
         next = tmp->next;
         delete tmp;
         tmp = next;
         }
-        head=nullptr;*/
+        head=nullptr;
     }
     virtual bool insertFirst(BaseItem * item);
     virtual BaseItem * get(ItemType itemType);
