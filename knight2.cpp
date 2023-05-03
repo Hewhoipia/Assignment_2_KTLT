@@ -305,7 +305,7 @@ bool DragonKnight::fight(BaseOpponent * opponent){
 NormalKnight::NormalKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
     knightType=NORMAL;
     //bag
-    bag = new 
+    bag = new NBag();
 }
 
 bool NormalKnight::fight(BaseOpponent * opponent){
