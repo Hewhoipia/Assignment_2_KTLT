@@ -65,7 +65,7 @@ protected:
     int level;
     int gil;
     int antidote;
-    BaseBag * bag;
+    BaseBag * bag=nullptr;
     KnightType knightType;
 public:
     static BaseKnight * create(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);

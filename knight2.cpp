@@ -332,13 +332,13 @@ ArmyKnights::~ArmyKnights(){
     BaseKnight *tmp=head;
     while (tmp!=nullptr){
         next = tmp->next;
-        delete tmp;
+        delete [] tmp;
         tmp = next;
     }
     head=nullptr;
     tail=nullptr;*/
     BaseKnight *tmp=head;
-    delete tmp;
+    delete [] tmp;
     head=nullptr;
 }
 
