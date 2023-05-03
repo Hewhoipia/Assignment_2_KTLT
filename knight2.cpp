@@ -25,7 +25,7 @@ static bool pythago(int num){
 }
 
 /* * * BEGIN implementation of class BaseBag * * */
-BaseItem BaseBag::*get(ItemType itemType){
+BaseItem* BaseBag::get(ItemType itemType){
     return nullptr;
 }
 
