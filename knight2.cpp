@@ -361,6 +361,7 @@ void ArmyKnights::readKnight(string eachKnight, int id){
     ifstream myK(eachKnight);
     cout << eachKnight << endl;
     int maxhp, level, pho, gil, anti;
+    if (myK.is_open()){
     myK >> maxhp >> level >> pho >> gil >> anti;
     cout << id << " " << maxhp << " " << level << " " << pho << " " << gil << " " << anti << endl;
     if (head == nullptr){
@@ -372,6 +373,9 @@ void ArmyKnights::readKnight(string eachKnight, int id){
         tail->next->pre=tail;
         tail=tail->next;
     }
+    myK.close();
+    }
+    else cout << "Cannot open the f*cking eachKnight file!"<<endl;
 }
 
 BaseKnight *ArmyKnights:: lastKnight() const{
