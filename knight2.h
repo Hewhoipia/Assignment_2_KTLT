@@ -34,6 +34,32 @@ public:
     virtual string toString() const;
 };
 
+// Derived class for BaseBag
+class DBag:public BaseBag{ // DRAGON Bag
+public:
+    DBag();
+    bool insertFirst (BaseItem *item);
+};
+
+class LBag:public BaseBag{ // LANCELOT Bag
+public:
+    LBag();
+    bool insertFirst (BaseItem *item);
+};
+
+class NBag:public BaseBag{ // NORMAL Bag
+public:
+    NBag();
+    bool insertFirst (BaseItem *item);
+};
+
+class PBag:public BaseBag{ // PALADIN Bag
+public:
+    PBag();
+    bool insertFirst (BaseItem *item);
+};
+// Derived class for BaseBag
+
 class BaseOpponent{
 public:
     virtual void blabla()=0;

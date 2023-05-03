@@ -33,49 +33,41 @@ string BaseBag::toString()const{
     return "haha\n";
 }
 
-class DBag:public BaseBag{ // DRAGON Bag
-public:
-    DBag(){
+// class DBag
+    DBag::DBag(){
         nItem=14;
     }
-    bool insertFirst (BaseItem *item){
+    bool DBag::insertFirst (BaseItem *item){
         //hmm
         return 1;
     }
-};
 
-class LBag:public BaseBag{ // LANCELOT Bag
-public:
-    LBag(){
+//class LBag
+    LBag::LBag(){
         nItem=16;
     }
-    bool insertFirst (BaseItem *item){
+    bool LBag::insertFirst (BaseItem *item){
         //hmm
         return 1;
     }
-};
 
-class NBag:public BaseBag{ // NORMAL Bag
-public:
-    NBag(){
+//class NBag
+    NBag::NBag(){
         nItem=19;
     }
-    bool insertFirst (BaseItem *item){
+    bool NBag::insertFirst (BaseItem *item){
         //hmm
         return 1;
     }
-};
 
-class PBag:public BaseBag{ // PALADIN Bag
-public:
-    PBag(){
+//class PBag
+    PBag::PBag(){
         nItem=-1; // infinite number
     }
-    bool insertFirst (BaseItem *item){
+    bool PBag::insertFirst (BaseItem *item){
         //hmm
         return 1;
     }
-};
 /* * * END implementation of class BaseBag * * */
 
 /* * * BEGIN implementation of class BaseItem * * */
