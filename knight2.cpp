@@ -308,10 +308,6 @@ bool NormalKnight::fight(BaseOpponent * opponent){
     //hmm
     return 1;
 }
-
-void BaseKnight::back(){
-    //do sth
-}
 /* * * END implementation of class BaseKnight * * */
 
 /* * * BEGIN implementation of class ArmyKnights * * */
