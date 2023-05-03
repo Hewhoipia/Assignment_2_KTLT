@@ -224,6 +224,7 @@ BaseKnight *BaseKnight::create (int id, int maxhp, int level, int gil, int antid
     else{
         hold = new NormalKnight(id, maxhp, level, gil, antidote, phoenixdownI);
     }
+    cout << id << " " << maxhp << " " << level << " " << gil << " " << antidote << " " << phoenixdownI << endl;
     return hold;
 }
 
@@ -308,6 +309,9 @@ bool NormalKnight::fight(BaseOpponent * opponent){
     return 1;
 }
 
+void BaseKnight::back(){
+    //do sth
+}
 /* * * END implementation of class BaseKnight * * */
 
 /* * * BEGIN implementation of class ArmyKnights * * */
@@ -320,6 +324,7 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
             string eachKnight;
             getline(myFile, eachKnight);
             getline(myFile, eachKnight);
+            cout << eachKnight << endl;
             ifstream myKnight(eachKnight);
             readKnight(eachKnight, i);
         }
