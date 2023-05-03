@@ -14,10 +14,11 @@ static bool pythago(int num);
 class BaseItem;
 class BaseBag {
 protected:
+    
+public:
     int nItem;
     int curItems=0;
     BaseItem *head=nullptr;
-public:
     virtual ~BaseBag(){
         /*BaseItem *next=nullptr;
         BaseItem *tmp=head;
