@@ -458,6 +458,9 @@ void KnightAdventure::loadEvents(const string & file){
 void KnightAdventure::run(){
     cout << "run!!!"<<endl;
     armyKnights->printALL();
+    events->printEvent();
+    //bool win = armyKnights->adventure(events);
+    //armyKnights->printResult(win);
 }
 
 /* * * END implementation of class KnightAdventure * * */
