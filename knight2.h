@@ -71,6 +71,7 @@ protected:
     int antidote;
     BaseBag * bag=nullptr;
     KnightType knightType;
+    bool shield=0, spear=0, hairpiece=0, sword=0;
 public:
     static BaseKnight * create(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
     string toString() const;

@@ -362,9 +362,41 @@ bool ArmyKnights::fight(BaseOpponent * opponent){
 bool ArmyKnights::adventure(Events * events){
     for (int i=1; i<=events->count(); i++){
         int curEvent = events->get (i);
-        //do sth
+        switch (curEvent)
+        {
+        case 1: // MadBear
+            /* code */
+            break;
+        
+        case 2: // Bandit
+
+            break;
+        
+        case 3: // LordLupin
+        case 4: // Elf
+        case 5: // Troll
+        case 6: // Tornbery
+        case 7: // Queen of Cards
+        case 8: // Nina de Rings
+        case 9: // VuonSauRieng
+        case 10: // Omega Weapon
+        case 11: // Hades
+        case 112: // Pho II
+        case 113: // Pho III
+        case 114: // Pho IV
+        case 95: // Pick up Paladin's shield
+        case 96: // Pick up Lancelot's spear
+        case 97: // Pick up Guinevere's hairpiece
+        case 98: // Excalibur
+        case 99: // or lose, maybe
+
+            return true;
+        default:
+            cout << "The current event is invalid. Please check input again!";
+            break;
+        }
     }
-    return false; //not defeat Ultimecia
+    return false; //not defeat Ultimecia in the last event
 }
 
 int ArmyKnights::count() const{
@@ -456,9 +488,10 @@ void KnightAdventure::loadEvents(const string & file){
     events = new Events(file);
 }
 void KnightAdventure::run(){
-    cout << "run!!!"<<endl;
     armyKnights->printALL();
+    cout << "Event: ";
     events->printEvent();
+    cout << "run!!!"<<endl;
     //bool win = armyKnights->adventure(events);
     //armyKnights->printResult(win);
 }
