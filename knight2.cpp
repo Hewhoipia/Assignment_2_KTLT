@@ -331,9 +331,9 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
     ifstream myFile(file_armyknights);
     if (myFile.is_open()){
         myFile >> armyNum;
+        string eachKnight;
+        getline(myFile, eachKnight);
         for (int i=1; i<=armyNum; i++){
-            string eachKnight;
-            getline(myFile, eachKnight);
             getline(myFile, eachKnight);
             readKnight(eachKnight, i);
         }
