@@ -41,7 +41,6 @@ string BaseBag::toString()const{
 
 BaseBag::BaseBag(){
     curItems=0;
-    head=nullptr;
 }
 
 BaseBag::~BaseBag(){
@@ -69,22 +68,22 @@ bool BaseBag::is_Full() const{
 }
 
 // class DBag
-    DBag::DBag():BaseBag(){
+    DBag::DBag(int PhoI):BaseBag(){
         nItem=14;
     }
 
 //class LBag
-    LBag::LBag():BaseBag(){
+    LBag::LBag(int PhoI, int Anti):BaseBag(){
         nItem=16;
     }
 
 //class NBag
-    NBag::NBag():BaseBag(){
+    NBag::NBag(int PhoI, int Anti):BaseBag(){
         nItem=19;
     }
 
 //class PBag
-    PBag::PBag():BaseBag(){
+    PBag::PBag(int PhoI, int Anti):BaseBag(){
         nItem=-1; // infinite number
     }
 
@@ -115,71 +114,64 @@ public:
     }
 };
 
-class PhoenixDownI:public BaseItem{
-public:
-    PhoenixDownI(){
-        type=PhoI;
+class PhoenixDown:public BaseItem{
+    ItemType Pho_Type;
+    PhoenixDown(ItemType what_Pho){
+        Pho_Type=what_Pho;
+        type=Pho;
     }
     void use ( BaseKnight * knight ){
         //use
     }
 };
 
-class PhoenixDownII:public BaseItem{
-public:
-    PhoenixDownII(){
-        type=PhoII;
-    }
-    void use ( BaseKnight * knight ){
-        //use
-    }
-};
-
-class PhoenixDownIII:public BaseItem{
-public:
-    PhoenixDownIII(){
-        type=PhoIII;
-    }
-    void use ( BaseKnight * knight ){
-        //use
-    }
-};
-
-class PhoenixDownIV:public BaseItem{
-public:
-    PhoenixDownIV(){
-        type=PhoIV;
-    }
-    void use ( BaseKnight * knight ){
-        //use
-    }
-};
 /* * * END implementation of class BaseItem * * */
 
 /* * * BEGIN implementation of class BaseOpponent * * */
+
 class MadBear:public BaseOpponent{
 public:
-    //hmm
+    MadBear(int i, int eventid){
+        gil=100;
+        baseDmg=10;
+        lvo=(i+eventid)%10+1;
+    }
 };
 
 class Bandit:public BaseOpponent{
 public:
-    //hmm
+    Bandit(int i, int eventid){
+        gil=150;
+        baseDmg=15;
+        lvo=(i+eventid)%10+1;
+    }
 };
 
 class LordLupin:public BaseOpponent{
 public:
-    //hmm
+    LordLupin(int i, int eventid){
+        gil=450;
+        baseDmg=45;
+        lvo=(i+eventid)%10+1;
+    }
 };
 
 class Elf:public BaseOpponent{
 public:
-    //hmm
+    Elf(int i, int eventid){
+        gil=750;
+        baseDmg=75;
+        lvo=(i+eventid)%10+1;
+    }
 };
 
 class Troll:public BaseOpponent{
 public:
-    //hmm
+    Troll(int i, int eventid){
+        gil=800;
+        baseDmg=95;
+        lvo=(i+eventid)%10+1;
+    }
 };
 
 class Tornbery:public BaseOpponent{
@@ -188,16 +180,6 @@ public:
 };
 
 class QueenOfCards:public BaseOpponent{
-public:
-    //hmm
-};
-
-class NinaDeRings:public BaseOpponent{
-public:
-    //hmm
-};
-
-class DurianGarden:public BaseOpponent{
 public:
     //hmm
 };
@@ -270,6 +252,11 @@ bool BaseKnight::can_gain_gil(int &cash){
     }
 }
 
+bool BaseKnight::is_dead()const{
+    if (hp>0)return 0;
+    return 1;
+}
+
 string BaseKnight::toString() const {
     string typeString[4] = {"PALADIN", "LANCELOT", "DRAGON", "NORMAL"};
     // inefficient version, students can change these code
@@ -289,8 +276,7 @@ string BaseKnight::toString() const {
 // class Paladin, Lancelot, Dragon, Normal
 PaladinKnight::PaladinKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
     knightType=PALADIN;
-    //bag
-    bag=new PBag ();
+    bag=new PBag (phoenixdownI, antidote);
 }
 
 bool PaladinKnight::fight(BaseOpponent * opponent){
@@ -300,8 +286,7 @@ bool PaladinKnight::fight(BaseOpponent * opponent){
 
 LancelotKnight::LancelotKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
     knightType=LANCELOT;
-    //bag
-    bag=new LBag();
+    bag=new LBag(phoenixdownI, antidote);
 }
 
 bool LancelotKnight::fight (BaseOpponent * opponent){
@@ -311,8 +296,7 @@ bool LancelotKnight::fight (BaseOpponent * opponent){
 
 DragonKnight::DragonKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
     knightType=DRAGON;
-    //bag
-    bag=new DBag();
+    bag=new DBag(phoenixdownI);
 }
 
 bool DragonKnight::fight(BaseOpponent * opponent){
@@ -322,13 +306,20 @@ bool DragonKnight::fight(BaseOpponent * opponent){
 
 NormalKnight::NormalKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
     knightType=NORMAL;
-    //bag
-    bag = new NBag();
+    bag = new NBag(phoenixdownI, antidote);
 }
 
 bool NormalKnight::fight(BaseOpponent * opponent){
-    //hmm
-    return 1;
+    if (this->level>=opponent->lvo){
+        return 1;
+    }
+    else{
+        hp=hp - opponent->baseDmg*(opponent->lvo-level);
+        if (hp<=0){
+            
+        }
+        return 1;
+    }
 }
 /* * * END implementation of class BaseKnight * * */
 
@@ -363,25 +354,42 @@ ArmyKnights::~ArmyKnights(){
 
 bool ArmyKnights::fight(BaseOpponent * opponent){
     BaseKnight* curKnight = lastKnight();
-    return curKnight->fight(opponent);
+    if (curKnight==nullptr) return 0;
+    if(curKnight->fight(opponent)){
+        gain_gil(opponent->gil);
+        delete opponent;
+        return 1;
+    }
+    else{
+
+    }
 }
 
 bool ArmyKnights::adventure(Events * events){
-    for (int i=1; i<=events->count(); i++){
+    for (int i=0; i<events->count(); i++){
         int curEvent = events->get (i);
         switch (curEvent)
         {
         case 1: // MadBear
-            /* code */
+            BaseOpponent*opponent=new MadBear(i, curEvent);
+            if(!fight(opponent)) return false;
             break;
-        
         case 2: // Bandit
-
+            BaseOpponent*opponent=new Bandit(i, curEvent);
+            if(!fight(opponent)) return false;
             break;
-        
         case 3: // LordLupin
+            BaseOpponent*opponent=new LordLupin(i, curEvent);
+            if(!fight(opponent)) return false;
+            break;
         case 4: // Elf
+            BaseOpponent*opponent=new Elf(i, curEvent);
+            if(!fight(opponent)) return false;
+            break;
         case 5: // Troll
+            BaseOpponent*opponent=new Troll(i, curEvent);
+            if(!fight(opponent)) return false;
+            break;
         case 6: // Tornbery
         case 7: // Queen of Cards
         case 8: // Nina de Rings
@@ -403,7 +411,7 @@ bool ArmyKnights::adventure(Events * events){
             break;
         }
     }
-    return false; //not defeat Ultimecia in the last event
+    return false; //not defeat Ultimecia still the last event
 }
 
 int ArmyKnights::count() const{
@@ -426,10 +434,17 @@ void ArmyKnights::readKnight(string eachKnight, int id){
 }
 
 void ArmyKnights::back(){
-    BaseKnight *hold = lastKnight();
-    tail = tail->pre;
-    tail->next=nullptr;
-    delete hold;
+    if (armyNum<=0) return;
+    else if (armyNum==1){
+        delete head;
+        head=tail=nullptr;
+    }
+    else{
+        BaseKnight *hold = lastKnight();
+        tail = tail->pre;
+        tail->next=nullptr;
+        delete hold;
+    }
 }
 
 void ArmyKnights::pick_Item(BaseItem * item) const{
@@ -541,7 +556,7 @@ Events::Events(const string &file_events){
         string endLine;
         getline (myFile, endLine);
         eArr=new int();
-        for (int i=1; i<=eNum; i++){
+        for (int i=0; i<eNum; i++){
             myFile >> eArr[i];
         }
         myFile.close();
@@ -560,7 +575,7 @@ int Events::get(int i) const{
     return eArr[i];
 }
 void Events::printEvent() const{
-    for (int i=1; i<=eNum; i++){
+    for (int i=0; i<eNum; i++){
         cout << eArr[i] << " ";
     }
     cout << endl;

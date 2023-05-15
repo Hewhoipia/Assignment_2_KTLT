@@ -5,7 +5,7 @@
 
 // #define DEBUG
 
-enum ItemType {Anti, PhoI, PhoII, PhoIII, PhoIV};
+enum ItemType {Anti ,Pho ,PhoI, PhoII, PhoIII, PhoIV};
 
 // some support functions
 static bool prime(int hacPe);
@@ -30,28 +30,32 @@ public:
 // Derived class for BaseBag
 class DBag:public BaseBag{ // DRAGON Bag
 public:
-    DBag();
+    DBag(int PhoI); // DRAGON Knight cannot have Antinote in Bag
 };
 
 class LBag:public BaseBag{ // LANCELOT Bag
 public:
-    LBag();
+    LBag(int PhoI, int Anti);
 };
 
 class NBag:public BaseBag{ // NORMAL Bag
 public:
-    NBag();
+    NBag(int PhoI, int Anti);
 };
 
 class PBag:public BaseBag{ // PALADIN Bag
 public:
-    PBag();
+    PBag(int PhoI, int Anti);
 };
 // Derived class for BaseBag
 
 class BaseOpponent{
 public:
-    virtual void blabla()=0;
+    int gil=0;
+    int baseDmg=0;
+    int lvo=0;
+    BaseOpponent();
+    virtual bool win()const;
 };
 
 enum KnightType { PALADIN = 0, LANCELOT, DRAGON, NORMAL };
@@ -77,6 +81,7 @@ public:
     virtual bool fight(BaseOpponent * opponent)=0;
     bool can_Add(BaseItem * item);
     bool can_gain_gil(int &cash);
+    bool is_dead()const;
 };
 
 
