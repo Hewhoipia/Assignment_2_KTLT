@@ -25,6 +25,12 @@ static bool pythago(int num){
 }
 
 /* * * BEGIN implementation of class BaseBag * * */
+
+bool BaseBag::insertFirst(BaseItem * item){
+    // do sth
+    return 0;
+}
+
 BaseItem* BaseBag::get(ItemType itemType){
     return nullptr;
 }
@@ -34,84 +40,71 @@ string BaseBag::toString()const{
 }
 
 BaseBag::BaseBag(){
-    nItem=curItems=0;
+    curItems=0;
     head=nullptr;
 }
 
 BaseBag::~BaseBag(){
-    /*BaseItem *next=nullptr;
+    BaseItem *next=nullptr;
     BaseItem *tmp=head;
     while (tmp!=nullptr){
     next = tmp->next;
     delete tmp;
     tmp = next;
     }
-    head=nullptr;*/
+    head=nullptr;
     cout << "deleted Bag\n";
 }
 
+bool BaseBag::hasItem()const{
+    if (head==nullptr) return 0;
+    return 1;
+}
+
+bool BaseBag::is_Full() const{
+    if (nItem == -1 || curItems < nItem){
+        return 0;
+    }
+    else return 1;
+}
+
 // class DBag
-    DBag::DBag(){
+    DBag::DBag():BaseBag(){
         nItem=14;
-        head=nullptr;
-    }
-    bool DBag::insertFirst (BaseItem *item){
-        //hmm
-        return 1;
-    }
-    string DBag::toString()const{
-        return "DBag";
     }
 
 //class LBag
-    LBag::LBag(){
+    LBag::LBag():BaseBag(){
         nItem=16;
-        head=nullptr;
-    }
-    bool LBag::insertFirst (BaseItem *item){
-        //hmm
-        return 1;
-    }
-    string LBag::toString()const{
-        return "LBag";
     }
 
 //class NBag
-    NBag::NBag(){
+    NBag::NBag():BaseBag(){
         nItem=19;
-        head=nullptr;
-    }
-    bool NBag::insertFirst (BaseItem *item){
-        //hmm
-        return 1;
-    }
-    string NBag::toString()const{
-        return "NBag";
     }
 
 //class PBag
-    PBag::PBag(){
+    PBag::PBag():BaseBag(){
         nItem=-1; // infinite number
-        head=nullptr;
     }
-    bool PBag::insertFirst (BaseItem *item){
-        //hmm
-        return 1;
-    }
-    string PBag::toString()const{
-        return "PBag";
-    }
+
 /* * * END implementation of class BaseBag * * */
 
 /* * * BEGIN implementation of class BaseItem * * */
+
 BaseItem::~BaseItem(){
     cout << "deleted Item"<<endl;
 }
+
+bool BaseItem::canUse (BaseKnight *knight){
+    if (knight->can_Add(this)) return 1;
+    return 0;
+}
+
 class Antidote:public BaseItem{
 public:
-    bool canUse (BaseKnight *knight){
-        //check bag
-        return 1;
+    Antidote(){
+        type=Anti;
     }
     void use ( BaseKnight * knight ){
         //use
@@ -124,9 +117,8 @@ public:
 
 class PhoenixDownI:public BaseItem{
 public:
-    bool canUse (BaseKnight *knight){
-        //check bag
-        return 1;
+    PhoenixDownI(){
+        type=PhoI;
     }
     void use ( BaseKnight * knight ){
         //use
@@ -135,9 +127,8 @@ public:
 
 class PhoenixDownII:public BaseItem{
 public:
-    bool canUse (BaseKnight *knight){
-        //check bag
-        return 1;
+    PhoenixDownII(){
+        type=PhoII;
     }
     void use ( BaseKnight * knight ){
         //use
@@ -146,9 +137,8 @@ public:
 
 class PhoenixDownIII:public BaseItem{
 public:
-    bool canUse (BaseKnight *knight){
-        //check bag
-        return 1;
+    PhoenixDownIII(){
+        type=PhoIII;
     }
     void use ( BaseKnight * knight ){
         //use
@@ -157,9 +147,8 @@ public:
 
 class PhoenixDownIV:public BaseItem{
 public:
-    bool canUse (BaseKnight *knight){
-        //check bag
-        return 1;
+    PhoenixDownIV(){
+        type=PhoIV;
     }
     void use ( BaseKnight * knight ){
         //use
@@ -259,8 +248,26 @@ BaseKnight::~BaseKnight(){
     cout << "deleted BaseKnight"<<endl;
 }
 
-void BaseKnight::back(){
-    //hmm
+bool BaseKnight::can_Add(BaseItem * item){
+    if (this->bag->is_Full()==0){
+        if (knightType==DRAGON && item->type==Anti) return 0;
+        this->bag->insertFirst(item);
+        return 1;
+    }
+    return 0;
+}
+
+bool BaseKnight::can_gain_gil(int &cash){
+    int numCash=999-gil;
+    if (numCash < cash){
+        gil=gil+numCash;
+        cash=cash-numCash;
+        return 1;
+    }
+    else{
+        gil=gil+cash;
+        return 0;
+    }
 }
 
 string BaseKnight::toString() const {
@@ -388,7 +395,7 @@ bool ArmyKnights::adventure(Events * events){
         case 96: // Pick up Lancelot's spear
         case 97: // Pick up Guinevere's hairpiece
         case 98: // Excalibur
-        case 99: // or lose, maybe
+        case 99: // win Ultimecia, or lose, maybe
 
             return true;
         default:
@@ -415,6 +422,34 @@ void ArmyKnights::readKnight(string eachKnight, int id){
         tail->next=BaseKnight::create (id, maxhp, level, gil, anti, pho);
         tail->next->pre=tail;
         tail=tail->next;
+    }
+}
+
+void ArmyKnights::back(){
+    BaseKnight *hold = lastKnight();
+    tail = tail->pre;
+    tail->next=nullptr;
+    delete hold;
+}
+
+void ArmyKnights::pick_Item(BaseItem * item) const{
+    BaseKnight * tmp=tail;
+    while (tmp!=nullptr){
+        if (item->canUse(tmp)){
+            return;
+        }
+        tmp=tmp->pre;
+    }
+    delete item;
+}
+
+void ArmyKnights::gain_gil(int cash)const{
+    BaseKnight * tmp=tail;
+    while (tmp!=nullptr){
+        if (tmp->can_gain_gil(cash)==0){
+            return;
+        }
+        tmp=tmp->pre;
     }
 }
 

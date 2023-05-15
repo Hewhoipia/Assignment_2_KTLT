@@ -66,6 +66,11 @@
         "compare": "cpp",
         "concepts": "cpp",
         "algorithm": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "iterator": "cpp",
+        "xlocale": "cpp",
+        "xlocnum": "cpp",
+        "xmemory": "cpp",
+        "xutility": "cpp"
     }
 }

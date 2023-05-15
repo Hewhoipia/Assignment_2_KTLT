@@ -5,7 +5,7 @@
 
 // #define DEBUG
 
-enum ItemType {Antidote, PhoI, PhoII, PhoIII, PhoIV};
+enum ItemType {Anti, PhoI, PhoII, PhoIII, PhoIV};
 
 // some support functions
 static bool prime(int hacPe);
@@ -19,39 +19,33 @@ protected:
     BaseItem *head;
 public:
     BaseBag();
-    virtual ~BaseBag();
-    virtual bool insertFirst(BaseItem * item)=0;
+    ~BaseBag();
+    virtual bool insertFirst(BaseItem * item);
     virtual BaseItem * get(ItemType itemType);
     virtual string toString() const;
+    virtual bool hasItem () const;
+    virtual bool is_Full()const;
 };
 
 // Derived class for BaseBag
 class DBag:public BaseBag{ // DRAGON Bag
 public:
     DBag();
-    bool insertFirst (BaseItem *item)override;
-    string toString()const override;
 };
 
 class LBag:public BaseBag{ // LANCELOT Bag
 public:
     LBag();
-    bool insertFirst (BaseItem *item)override;
-    string toString()const override;
 };
 
 class NBag:public BaseBag{ // NORMAL Bag
 public:
     NBag();
-    bool insertFirst (BaseItem *item)override;
-    string toString()const override;
 };
 
 class PBag:public BaseBag{ // PALADIN Bag
 public:
     PBag();
-    bool insertFirst (BaseItem *item)override;
-    string toString()const override;
 };
 // Derived class for BaseBag
 
@@ -81,7 +75,8 @@ public:
     BaseKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
     ~BaseKnight();
     virtual bool fight(BaseOpponent * opponent)=0;
-    void back(); //delete last element of ArmyKnight
+    bool can_Add(BaseItem * item);
+    bool can_gain_gil(int &cash);
 };
 
 
@@ -125,6 +120,9 @@ public:
     int count() const;
     BaseKnight * lastKnight() const;
     void readKnight(string eachKnight, int id);
+    void back(); //delete last element of ArmyKnight
+    void pick_Item(BaseItem * item) const;
+    void gain_gil(int cash) const;
 
     bool hasPaladinShield() const;
     bool hasLancelotSpear() const;
@@ -138,6 +136,7 @@ public:
 
 class BaseItem {
 public:
+    BaseItem();
     ~BaseItem();
     BaseItem *next=nullptr;
     ItemType type;
