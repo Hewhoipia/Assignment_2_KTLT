@@ -5,7 +5,7 @@
 
 // #define DEBUG
 
-enum ItemType {Anti, Pho, PhoI, PhoII, PhoIII, PhoIV};
+enum ItemType {Anti, PhoI, PhoII, PhoIII, PhoIV};
 enum OppoType {MB, Ban, Lupin, E, Tr, Torn, Queen, Omega, Ha, Ulti};
 
 // some support functions

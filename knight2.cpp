@@ -924,7 +924,7 @@ bool ArmyKnights::adventure(Events * events){
             }
             else return false;
         default:
-            cout << "The event "<< i <<" is invalid. Please check input again!";
+            cout << "The event "<< i <<" is invalid. Please check input again!\n";
             break;
         }
         if (armyNum==0) return false;
@@ -1070,6 +1070,7 @@ Events::Events(const string &file_events){
     if (myFile.is_open()){
         myFile >> eNum;
         string endLine;
+        getline (myFile, endLine);
         getline (myFile, endLine);
         eArr=new int();
         for (int i=0; i<eNum; i++){
