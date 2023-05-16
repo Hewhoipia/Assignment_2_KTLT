@@ -581,6 +581,22 @@ string BaseKnight::toString() const {
     return s;
 }
 
+string BaseKnight::new_to_string() const {
+    string typeString[4] = {"PALADIN", "LANCELOT", "DRAGON", "NORMAL"};
+    // inefficient version, students can change these code
+    //      but the format output must be the same
+    string s("");
+    s += "[Knight:id:" + to_string(id) 
+        + ",hp:" + to_string(hp) 
+        + ",maxhp:" + to_string(maxhp)
+        + ",level:" + to_string(level)
+        + ",gil:" + to_string(gil)
+        + "," + ((bag==nullptr) ? "null":bag->toString())
+        + ",knight_type:" + typeString[knightType]
+        + "]";
+    return s;
+}
+
 // class Paladin, Lancelot, Dragon, Normal
 PaladinKnight::PaladinKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
     knightType=PALADIN;
@@ -1031,7 +1047,7 @@ void ArmyKnights::printResult(bool win) const {
 void ArmyKnights::printALL() const{
     BaseKnight *tmp=head;
     while (tmp!=nullptr){
-        cout << tmp->toString() << endl;
+        cout << tmp->new_to_string() << endl;
         tmp=tmp->next;
     }
 }
