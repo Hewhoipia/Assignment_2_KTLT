@@ -32,6 +32,7 @@ bool BaseBag::insertFirst(BaseItem * item){
     head->next=hold;
     if(hold!=nullptr)hold->pre=head;
     curItems++;
+    return 1;
 }
 
 BaseBag::BaseBag(int PhoxeI, int Antinek){
@@ -830,6 +831,8 @@ bool ArmyKnights::fight(BaseOpponent * opponent){
 bool ArmyKnights::adventure(Events * events){
     for (int i=0; i<events->count(); i++){
         BaseOpponent*opponent=nullptr;
+        BaseKnight * curKnight = nullptr;
+        BaseItem * item = nullptr;
         int curEvent = events->get (i);
         switch (curEvent)
         {
@@ -862,11 +865,13 @@ bool ArmyKnights::adventure(Events * events){
             fight(opponent);
             break;
         case 8: // Nina de Rings
-            BaseKnight * curKnight = lastKnight();
+            curKnight = lastKnight();
             curKnight->nina_de_rings();
+            break;
         case 9: // VuonSauRieng
-            BaseKnight * curKnight = lastKnight();
+            curKnight = lastKnight();
             curKnight->sau_rieng();
+            break;
         case 10: // Omega Weapon
             if(!meet_Omega){
                 opponent=new OmegaWeapon(i, curEvent);
@@ -876,21 +881,21 @@ bool ArmyKnights::adventure(Events * events){
             break;
         case 11: // Hades
             if(!meet_Hades){
-                opponent=new OmegaWeapon(i, curEvent);
+                opponent=new Hades(i, curEvent);
                 fight(opponent);
                 meet_Hades=1;
             }
             break;
         case 112: // Pho II
-            BaseItem * item = new PhoenixDown(PhoII);
+            item = new PhoenixDown(PhoII);
             pick_Item(item);
             break;
         case 113: // Pho III
-            BaseItem * item = new PhoenixDown(PhoIII);
+            item = new PhoenixDown(PhoIII);
             pick_Item(item);
             break;
         case 114: // Pho IV
-            BaseItem * item = new PhoenixDown(PhoIV);
+            item = new PhoenixDown(PhoIV);
             pick_Item(item);
             break;
         case 95: // Pick up Paladin's shield
