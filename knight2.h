@@ -57,7 +57,6 @@ public:
     int baseDmg=0;
     int lvo=0;
     OppoType type;
-    BaseOpponent();
 };
 
 enum KnightType { PALADIN = 0, LANCELOT, DRAGON, NORMAL };
