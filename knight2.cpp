@@ -59,7 +59,7 @@ BaseBag::~BaseBag(){
     tmp = next;
     }
     head=nullptr;
-    cout << "deleted Bag\n";
+    //cout << "deleted Bag\n";
 }
 
 BaseItem* BaseBag::get (ItemType itemType){
@@ -291,7 +291,7 @@ void BaseBag::front(){
 BaseItem::BaseItem(){}
 
 BaseItem::~BaseItem(){
-    cout << "deleted Item"<<endl;
+    //cout << "deleted Item"<<endl;
 }
 
 bool BaseItem::canAddI(BaseKnight *knight){
@@ -454,7 +454,7 @@ BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int 
 BaseKnight::~BaseKnight(){
     delete bag;
     bag=nullptr;
-    cout << "deleted BaseKnight"<<endl;
+    //cout << "deleted BaseKnight"<<endl;
 }
 
 bool BaseKnight::can_Add(BaseItem * item){
@@ -804,7 +804,7 @@ ArmyKnights::~ArmyKnights(){
     }
     head=nullptr;
     tail=nullptr;
-    cout << "deleted ArmyKnight"<<endl;
+    //cout << "deleted ArmyKnight"<<endl;
 }
 
 bool ArmyKnights::fight(BaseOpponent * opponent){
@@ -1088,7 +1088,7 @@ Events::Events(const string &file_events){
 Events::~Events(){
     delete eArr;
     eArr=nullptr;
-    cout << "deleted Event"<<endl;
+    //cout << "deleted Event"<<endl;
 }
 int Events::count() const{
     return eNum;
