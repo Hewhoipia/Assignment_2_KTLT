@@ -87,6 +87,7 @@ public:
     bool be_Poison(); // do not use for DRAGON
     void nina_de_rings();
     void sau_rieng();
+    string new_to_string() const;
 };
 
 
