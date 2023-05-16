@@ -214,24 +214,22 @@ string BaseBag::toString()const{
     BaseItem * tmp=head;
     while (tmp!=nullptr){
         if (tmp->type==Anti){
-            list_item+="Antidote,";
+            list_item+="Antidote";
         }
         else if (tmp->type==PhoI){
-            list_item+="PhoenixI,";
+            list_item+="PhoenixI";
         }
         else if (tmp->type==PhoII){
-            list_item+="PhoenixII,";
+            list_item+="PhoenixII";
         }
         else if (tmp->type==PhoIII){
-            list_item+="PhoenixIII,";
+            list_item+="PhoenixIII";
         }
         else if (tmp->type==PhoIV){
-            list_item+="PhoenixIV,";
+            list_item+="PhoenixIV";
         }
+        if (tmp->next!=nullptr) list_item+=",";
         tmp=tmp->next;
-    }
-    if (curItems > 0){
-        list_item.erase(list_item.end());
     }
     string s="Bag[count=" + to_string(nItem) + (char)59 + list_item + "]";
     //cout << "listItem: " << list_item << endl;
