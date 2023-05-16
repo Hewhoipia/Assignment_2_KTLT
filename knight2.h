@@ -19,7 +19,7 @@ protected:
     int curItems=0;
     BaseItem *head=nullptr;
 public:
-    BaseBag(int PhoxeI, int Antinek);
+    BaseBag();
     ~BaseBag();
     virtual bool insertFirst(BaseItem * item);
     virtual BaseItem * get(ItemType itemType);

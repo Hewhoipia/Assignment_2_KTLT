@@ -35,20 +35,7 @@ bool BaseBag::insertFirst(BaseItem * item){
     return 1;
 }
 
-BaseBag::BaseBag(int PhoxeI, int Antinek){
-    while (PhoxeI>0 && curItems<nItem){
-        BaseItem * item = new PhoenixDown(PhoI);
-        insertFirst(item);
-        PhoxeI--;
-        curItems++;
-    }
-    while (Antinek>0 && curItems<nItem){
-        BaseItem * item = new Antidote();
-        insertFirst(item);
-        Antinek--;
-        curItems++;
-    }
-}
+BaseBag::BaseBag(){}
 
 BaseBag::~BaseBag(){
     BaseItem *next=nullptr;
@@ -238,7 +225,7 @@ string BaseBag::toString()const{
 }
 
 bool BaseBag::is_Full() const{
-    if (nItem == -1 || curItems < nItem){
+    if (curItems < nItem){
         return 0;
     }
     else return 1;
@@ -260,23 +247,67 @@ void BaseBag::front(){
 }
 
 // class DBag
-    DBag::DBag(int PhoxeI):BaseBag(PhoI, 0){
+    DBag::DBag(int PhoxeI){
         nItem=14;
+        int a = PhoxeI, b = 0;
+        while (a>0 && curItems<nItem){
+            BaseItem * item = new PhoenixDown(PhoI);
+            insertFirst(item);
+            a--;
+        }
+        while (b>0 && curItems<nItem){
+            BaseItem * item = new Antidote();
+            insertFirst(item);
+            b--;
+        }
     }
 
 //class LBag
-    LBag::LBag(int PhoxeI, int Anti):BaseBag(PhoxeI, Anti){
+    LBag::LBag(int PhoxeI, int Anti){
         nItem=16;
+        int a = PhoxeI, b = Anti;
+        while (a>0 && curItems<nItem){
+            BaseItem * item = new PhoenixDown(PhoI);
+            insertFirst(item);
+            a--;
+        }
+        while (b>0 && curItems<nItem){
+            BaseItem * item = new Antidote();
+            insertFirst(item);
+            b--;
+        }
     }
 
 //class NBag
-    NBag::NBag(int PhoxeI, int Anti):BaseBag(PhoxeI, Anti){
+    NBag::NBag(int PhoxeI, int Anti){
         nItem=19;
+        int a = PhoxeI, b = Anti;
+        while (a>0 && curItems<nItem){
+            BaseItem * item = new PhoenixDown(PhoI);
+            insertFirst(item);
+            a--;
+        }
+        while (b>0 && curItems<nItem){
+            BaseItem * item = new Antidote();
+            insertFirst(item);
+            b--;
+        }
     }
 
 //class PBag
-    PBag::PBag(int PhoxeI, int Anti):BaseBag(PhoxeI, Anti){
-        nItem=-1; // infinite number
+    PBag::PBag(int PhoxeI, int Anti){
+        nItem=10000; // infinite number
+        int a = PhoxeI, b = Anti;
+        while (a>0 && curItems<nItem){
+            BaseItem * item = new PhoenixDown(PhoI);
+            insertFirst(item);
+            a--;
+        }
+        while (b>0 && curItems<nItem){
+            BaseItem * item = new Antidote();
+            insertFirst(item);
+            b--;
+        }
     }
 
 /* * * END implementation of class BaseBag * * */
@@ -505,14 +536,8 @@ void BaseKnight::use_item(BaseItem * item){
 }
 
 void BaseKnight::modify_hp(){
-    if (hp<maxhp/2){
-        BaseItem * item = bag->get(PhoIV);
-        if (item!=nullptr){
-            use_item(item);
-        }
-    }
-    else if (hp<maxhp/3){
-        BaseItem * item = bag->get(PhoIII);
+    if (hp<=0){
+        BaseItem * item = bag->get(PhoI);
         if (item!=nullptr){
             use_item(item);
         }
@@ -523,8 +548,14 @@ void BaseKnight::modify_hp(){
             use_item(item);
         }
     }
-    else if (hp<=0){
-        BaseItem * item = bag->get(PhoI);
+    else if (hp<maxhp/3){
+        BaseItem * item = bag->get(PhoIII);
+        if (item!=nullptr){
+            use_item(item);
+        }
+    }
+    else if (hp<maxhp/2){
+        BaseItem * item = bag->get(PhoIV);
         if (item!=nullptr){
             use_item(item);
         }
@@ -1070,10 +1101,10 @@ void KnightAdventure::loadEvents(const string & file){
     events = new Events(file);
 }
 void KnightAdventure::run(){
-    armyKnights->printALL();
-    cout << "Event: ";
-    events->printEvent();
-    cout << "run!!!"<<endl;
+    //armyKnights->printALL();
+    //cout << "Event: ";
+    //events->printEvent();
+    //cout << "run!!!"<<endl;
     bool win = armyKnights->adventure(events);
     armyKnights->printResult(win);
 }
