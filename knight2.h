@@ -5,7 +5,8 @@
 
 // #define DEBUG
 
-enum ItemType {Anti ,Pho ,PhoI, PhoII, PhoIII, PhoIV};
+enum ItemType {Anti, Pho, PhoI, PhoII, PhoIII, PhoIV};
+enum OppoType {MB, Ban, Lupin, E, Tr, Torn, Queen, Omega, Ha, Ulti};
 
 // some support functions
 static bool prime(int hacPe);
@@ -15,47 +16,48 @@ class BaseItem;
 class BaseBag {
 protected:
     int nItem;
-    int curItems;
-    BaseItem *head;
+    int curItems=0;
+    BaseItem *head=nullptr;
 public:
-    BaseBag();
+    BaseBag(int PhoxeI, int Antinek);
     ~BaseBag();
     virtual bool insertFirst(BaseItem * item);
     virtual BaseItem * get(ItemType itemType);
     virtual string toString() const;
-    virtual bool hasItem () const;
     virtual bool is_Full()const;
+    virtual void front();
 };
 
 // Derived class for BaseBag
 class DBag:public BaseBag{ // DRAGON Bag
 public:
-    DBag(int PhoI); // DRAGON Knight cannot have Antinote in Bag
+    DBag(int PhoxeI); // DRAGON Knight cannot have Antinote in Bag
 };
 
 class LBag:public BaseBag{ // LANCELOT Bag
 public:
-    LBag(int PhoI, int Anti);
+    LBag(int PhoxeI, int Anti);
 };
 
 class NBag:public BaseBag{ // NORMAL Bag
 public:
-    NBag(int PhoI, int Anti);
+    NBag(int PhoxeI, int Anti);
 };
 
 class PBag:public BaseBag{ // PALADIN Bag
 public:
-    PBag(int PhoI, int Anti);
+    PBag(int PhoxeI, int Anti);
 };
 // Derived class for BaseBag
 
 class BaseOpponent{
 public:
+    int hp=5000; // only use for Ultimecia
     int gil=0;
     int baseDmg=0;
     int lvo=0;
+    OppoType type;
     BaseOpponent();
-    virtual bool win()const;
 };
 
 enum KnightType { PALADIN = 0, LANCELOT, DRAGON, NORMAL };
@@ -69,7 +71,6 @@ protected:
     int antidote;
     BaseBag * bag=nullptr;
     KnightType knightType;
-    bool shield=0, spear=0, hairpiece=0, sword=0;
 public:
     static BaseKnight * create(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
     string toString() const;
@@ -82,6 +83,11 @@ public:
     bool can_Add(BaseItem * item);
     bool can_gain_gil(int &cash);
     bool is_dead()const;
+    void use_item(BaseItem * item);
+    void modify_hp();
+    bool be_Poison(); // do not use for DRAGON
+    void nina_de_rings();
+    void sau_rieng();
 };
 
 
@@ -117,6 +123,9 @@ private:
     int armyNum;
     BaseKnight *head=nullptr;
     BaseKnight *tail=nullptr;
+    bool meet_Omega=0, meet_Hades=0;
+    int num_of_tresure=0;
+    bool shield=0, spear=0, hairpiece=0, sword=0;
 public:
     ArmyKnights (const string & file_armyknights);
     ~ArmyKnights();
@@ -144,9 +153,11 @@ public:
     BaseItem();
     ~BaseItem();
     BaseItem *next=nullptr;
+    BaseItem *pre=nullptr;
     ItemType type;
-    virtual bool canUse ( BaseKnight * knight ) = 0;
-    virtual void use ( BaseKnight * knight ) = 0;
+    virtual bool canAddI (BaseKnight * knight); // can add
+    virtual bool canUse ( BaseKnight * knight )=0;
+    virtual void use ( BaseKnight * knight )=0;
 };
 
 class Events {

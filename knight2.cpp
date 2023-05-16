@@ -31,16 +31,23 @@ bool BaseBag::insertFirst(BaseItem * item){
     return 0;
 }
 
-BaseItem* BaseBag::get(ItemType itemType){
-    return nullptr;
-}
-
 string BaseBag::toString()const{
     return "bag";
 }
 
-BaseBag::BaseBag(){
-    curItems=0;
+BaseBag::BaseBag(int PhoxeI, int Antinek){
+    while (PhoxeI>0 && curItems<nItem){
+        BaseItem * item = new PhoenixDown(PhoI);
+        insertFirst(item);
+        PhoxeI--;
+        curItems++;
+    }
+    while (Antinek>0 && curItems<nItem){
+        BaseItem * item = new Antidote();
+        insertFirst(item);
+        Antinek--;
+        curItems++;
+    }
 }
 
 BaseBag::~BaseBag(){
@@ -55,9 +62,193 @@ BaseBag::~BaseBag(){
     cout << "deleted Bag\n";
 }
 
-bool BaseBag::hasItem()const{
-    if (head==nullptr) return 0;
-    return 1;
+bool BaseBag::insertFirst(BaseItem * item){
+    BaseItem *hold=head;
+    head = item;
+    head->next=hold;
+    if(hold!=nullptr)hold->pre=head;
+    curItems++;
+}
+
+BaseItem* BaseBag::get (ItemType itemType){
+    if (itemType==PhoI){
+        BaseItem * tmp=head;
+        while (tmp!=nullptr){
+            if (tmp->type==PhoI || tmp->type==PhoII || tmp->type==PhoIII || tmp->type==PhoIV){
+                if (tmp==head){
+                    head=head->next;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+                else if (tmp==head->next){
+                    tmp->pre=nullptr;
+                    head->next=tmp->next;
+                    if(tmp->next!=nullptr) tmp->next->pre=head;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+                else{
+                    BaseItem * hold=head->next;
+                    tmp->pre->next=head;
+                    if(tmp->next!=nullptr)tmp->next->pre=head;
+                    head->pre=tmp->pre;
+                    head->next=tmp->next;
+                    tmp->pre=nullptr;
+                    tmp->next=nullptr;
+                    head=hold;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+            }
+            tmp=tmp->next;
+        }
+        return nullptr;
+    }
+    else if (itemType==PhoII){
+        BaseItem * tmp=head;
+        while (tmp!=nullptr){
+            if (tmp->type==PhoII || tmp->type==PhoIII || tmp->type==PhoIV){
+                if (tmp==head){
+                    head=head->next;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+                else if (tmp==head->next){
+                    tmp->pre=nullptr;
+                    head->next=tmp->next;
+                    if(tmp->next!=nullptr) tmp->next->pre=head;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+                else{
+                    BaseItem * hold=head->next;
+                    tmp->pre->next=head;
+                    if(tmp->next!=nullptr)tmp->next->pre=head;
+                    head->pre=tmp->pre;
+                    head->next=tmp->next;
+                    tmp->pre=nullptr;
+                    tmp->next=nullptr;
+                    head=hold;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+            }
+            tmp=tmp->next;
+        }
+        return nullptr;
+    }
+     else if (itemType==PhoIII){
+        BaseItem * tmp=head;
+        while (tmp!=nullptr){
+            if (tmp->type==PhoIII || tmp->type==PhoIV){
+                if (tmp==head){
+                    head=head->next;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+                else if (tmp==head->next){
+                    tmp->pre=nullptr;
+                    head->next=tmp->next;
+                    if(tmp->next!=nullptr) tmp->next->pre=head;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+                else{
+                    BaseItem * hold=head->next;
+                    tmp->pre->next=head;
+                    if(tmp->next!=nullptr)tmp->next->pre=head;
+                    head->pre=tmp->pre;
+                    head->next=tmp->next;
+                    tmp->pre=nullptr;
+                    tmp->next=nullptr;
+                    head=hold;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+            }
+            tmp=tmp->next;
+        }
+        return nullptr;
+    }
+     else{
+        BaseItem * tmp=head;
+        while (tmp!=nullptr){
+            if (tmp->type==itemType){
+                if (tmp==head){
+                    head=head->next;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+                else if (tmp==head->next){
+                    tmp->pre=nullptr;
+                    head->next=tmp->next;
+                    if(tmp->next!=nullptr) tmp->next->pre=head;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+                else{
+                    BaseItem * hold=head->next;
+                    tmp->pre->next=head;
+                    if(tmp->next!=nullptr)tmp->next->pre=head;
+                    head->pre=tmp->pre;
+                    head->next=tmp->next;
+                    tmp->pre=nullptr;
+                    tmp->next=nullptr;
+                    head=hold;
+                    tmp->next=nullptr;
+                    curItems--;
+                    return tmp;
+                }
+            }
+            tmp=tmp->next;
+        }
+        return nullptr;
+    }
+}
+
+string BaseBag::toString()const{
+    string list_item="";
+    BaseItem * tmp=head;
+    while (tmp!=nullptr){
+        ItemType type=tmp->type;
+        switch (type)
+        {
+        case Anti:
+            list_item+="Antidote,";
+            break;
+        case PhoI:
+            list_item+="PhoenixI,";
+            break;
+        case PhoII:
+            list_item+="PhoenixII,";
+            break;
+        case PhoIII:
+            list_item+="PhoenixIII,";
+            break;
+        case PhoIV:
+            list_item+="PhoenixIV,";
+            break;
+        default:
+            break;
+        }
+        tmp=tmp->next;
+    }
+    if (curItems > 0){
+        list_item.erase(list_item.end());
+    }
+    string s="Bag[count=" + nItem + (char)59 + list_item + "]";
+    return s;
 }
 
 bool BaseBag::is_Full() const{
@@ -67,23 +258,38 @@ bool BaseBag::is_Full() const{
     else return 1;
 }
 
+void BaseBag::front(){
+    BaseItem * tmp = head;
+    if (curItems==1) {
+        delete head;
+        head=nullptr;
+        curItems--;
+    }
+    else if (curItems>1){
+        head=head->next;
+        head->pre=nullptr;
+        delete tmp;
+        curItems--;
+    }
+}
+
 // class DBag
-    DBag::DBag(int PhoI):BaseBag(){
+    DBag::DBag(int PhoxeI):BaseBag(PhoI, 0){
         nItem=14;
     }
 
 //class LBag
-    LBag::LBag(int PhoI, int Anti):BaseBag(){
+    LBag::LBag(int PhoxeI, int Anti):BaseBag(PhoxeI, Anti){
         nItem=16;
     }
 
 //class NBag
-    NBag::NBag(int PhoI, int Anti):BaseBag(){
+    NBag::NBag(int PhoxeI, int Anti):BaseBag(PhoxeI, Anti){
         nItem=19;
     }
 
 //class PBag
-    PBag::PBag(int PhoI, int Anti):BaseBag(){
+    PBag::PBag(int PhoxeI, int Anti):BaseBag(PhoxeI, Anti){
         nItem=-1; // infinite number
     }
 
@@ -95,7 +301,7 @@ BaseItem::~BaseItem(){
     cout << "deleted Item"<<endl;
 }
 
-bool BaseItem::canUse (BaseKnight *knight){
+bool BaseItem::canAddI(BaseKnight *knight){
     if (knight->can_Add(this)) return 1;
     return 0;
 }
@@ -105,23 +311,26 @@ public:
     Antidote(){
         type=Anti;
     }
-    void use ( BaseKnight * knight ){
-        //use
-    }
-    bool bePoison(BaseKnight *knight){
-        //check if the knight is poisoned
+    bool canUse (BaseKnight *knight){
+        // do nth
         return 1;
+    }
+    void use ( BaseKnight * knight ){
+        // nothing here
     }
 };
 
 class PhoenixDown:public BaseItem{
-    ItemType Pho_Type;
-    PhoenixDown(ItemType what_Pho){
-        Pho_Type=what_Pho;
-        type=Pho;
+public:
+    PhoenixDown(ItemType Pho_Type){
+        type=Pho_Type;
+    }
+    bool canUse (BaseKnight *knight){
+        // do nth
+        return 1;
     }
     void use ( BaseKnight * knight ){
-        //use
+        // nothing here
     }
 };
 
@@ -135,6 +344,7 @@ public:
         gil=100;
         baseDmg=10;
         lvo=(i+eventid)%10+1;
+        type=MB;
     }
 };
 
@@ -144,6 +354,7 @@ public:
         gil=150;
         baseDmg=15;
         lvo=(i+eventid)%10+1;
+        type=Ban;
     }
 };
 
@@ -153,6 +364,7 @@ public:
         gil=450;
         baseDmg=45;
         lvo=(i+eventid)%10+1;
+        type=Lupin;
     }
 };
 
@@ -162,6 +374,7 @@ public:
         gil=750;
         baseDmg=75;
         lvo=(i+eventid)%10+1;
+        type=E;
     }
 };
 
@@ -171,28 +384,55 @@ public:
         gil=800;
         baseDmg=95;
         lvo=(i+eventid)%10+1;
+        type=Tr;
     }
 };
 
 class Tornbery:public BaseOpponent{
 public:
-    //hmm
+    Tornbery(int i, int eventid){
+        gil=baseDmg=0;
+        lvo=(i+eventid)%10+1;
+        type=Torn;
+    }
 };
 
 class QueenOfCards:public BaseOpponent{
 public:
-    //hmm
+    QueenOfCards(int i, int eventid){
+        gil=baseDmg=0;
+        lvo=(i+eventid)%10+1;
+        type=Queen;
+    }
 };
 
 class OmegaWeapon:public BaseOpponent{
 public:
-    //hmm
+    OmegaWeapon(int i, int eventid){
+        gil=baseDmg=0;
+        lvo=10;
+        type=Omega;
+    }
 };
 
 class Hades:public BaseOpponent{
 public:
-    //hmm
+    Hades(int i, int eventid){
+        gil=baseDmg=0;
+        lvo=10;
+        type=Ha;
+    }
 };
+
+class Ultimecia:public BaseOpponent{
+public:
+    Ultimecia(int i, int eventid){
+        gil=baseDmg=0;
+        lvo=0;
+        type=Ulti;
+    }
+};
+
 /* * * END implementation of class BaseOpponent * * */
 
 /* * * BEGIN implementation of class BaseKnight * * */
@@ -232,7 +472,6 @@ BaseKnight::~BaseKnight(){
 
 bool BaseKnight::can_Add(BaseItem * item){
     if (this->bag->is_Full()==0){
-        if (knightType==DRAGON && item->type==Anti) return 0;
         this->bag->insertFirst(item);
         return 1;
     }
@@ -255,6 +494,92 @@ bool BaseKnight::can_gain_gil(int &cash){
 bool BaseKnight::is_dead()const{
     if (hp>0)return 0;
     return 1;
+}
+
+void BaseKnight::use_item(BaseItem * item){
+    switch (item->type)
+    {
+    case PhoI:
+        hp=maxhp;
+        break;
+    case PhoII:
+        hp=maxhp;
+        break;
+    case PhoIII:
+        if (hp<=0) hp=maxhp/3;
+        else hp+=maxhp/4;
+        break;
+    case PhoIV:
+        if (hp<=0) hp=maxhp/2;
+        else hp+=maxhp/5;
+        break;
+    case Anti:
+        antidote--;
+        break;
+    default:
+        break;
+    }
+    if (hp>maxhp) hp=maxhp;
+    delete item;
+}
+
+void BaseKnight::modify_hp(){
+    if (hp<maxhp/2){
+        BaseItem * item = bag->get(PhoIV);
+        if (item!=nullptr){
+            use_item(item);
+        }
+    }
+    else if (hp<maxhp/3){
+        BaseItem * item = bag->get(PhoIII);
+        if (item!=nullptr){
+            use_item(item);
+        }
+    }
+    else if (hp<maxhp/4){
+        BaseItem * item = bag->get(PhoII);
+        if (item!=nullptr){
+            use_item(item);
+        }
+    }
+    else if (hp<=0){
+        BaseItem * item = bag->get(PhoI);
+        if (item!=nullptr){
+            use_item(item);
+        }
+    }
+    if (hp<=0 && gil >= 100){
+        gil-=100;
+        hp=maxhp/2;
+    }
+}
+
+bool BaseKnight::be_Poison(){
+    BaseItem * item = bag->get(Anti);
+    if (item!=nullptr){
+        use_item(item);
+        return 0;
+    }
+    return 1;
+}
+
+void BaseKnight::nina_de_rings(){
+    if (knightType==PALADIN){
+        if (hp<maxhp/3) hp+=(maxhp/5);
+    }
+    if (gil<50){
+        return;
+    }
+    else {
+        if(hp<maxhp/3){
+            gil-=50;
+            hp+=(maxhp/5);
+        }
+    }
+}
+
+void BaseKnight::sau_rieng(){
+    hp=maxhp;
 }
 
 string BaseKnight::toString() const {
@@ -280,8 +605,51 @@ PaladinKnight::PaladinKnight(int id, int maxhp, int level, int gil, int antidote
 }
 
 bool PaladinKnight::fight(BaseOpponent * opponent){
-    //hmm
-    return 1;
+    if (opponent->type==Ulti){
+        opponent->hp-=(hp*level*0.06);
+        if (opponent->hp <= 0) return 1;
+        hp=0;
+        return 0;
+    }
+    if (opponent->type==MB || opponent->type==Ban || opponent->type==Lupin
+        || opponent->type==E || opponent->type==Tr) return 1;
+    if (opponent->type==Ha && level>=8) return 1;
+    if (this->level>=opponent->lvo){
+        if (opponent->type==Torn && level<10)level++;
+        if (opponent->type==Queen) opponent->gil=gil;
+        if (opponent->type==Omega){
+            if (hp==maxhp){ // win branch
+                level=10;
+                gil=999;
+            }
+            else { // lose branch
+                hp=0;
+                modify_hp();
+                return 0;
+            }
+        }
+        return 1;
+    }
+    else{
+        if (opponent->type==Torn){
+            if (be_Poison){
+                for (int i=0; i<3; i++){
+                    bag->front();
+                }
+                hp=hp-10;
+                modify_hp();
+            }
+        }
+        else if (opponent->type==Ha) {
+            hp=0;
+            modify_hp();
+        }
+        else{
+            hp=hp - opponent->baseDmg*(opponent->lvo-level);
+            modify_hp();
+        }
+        return 0;
+    }
 }
 
 LancelotKnight::LancelotKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
@@ -290,8 +658,51 @@ LancelotKnight::LancelotKnight(int id, int maxhp, int level, int gil, int antido
 }
 
 bool LancelotKnight::fight (BaseOpponent * opponent){
-    //hmm
-    return 1;
+    if (opponent->type==Ulti){
+        opponent->hp-=(hp*level*0.05);
+        if (opponent->hp <= 0) return 1;
+        hp=0;
+        return 0;
+    }
+    if (opponent->type==MB || opponent->type==Ban || opponent->type==Lupin
+        || opponent->type==E || opponent->type==Tr) return 1;
+    if (this->level>=opponent->lvo){
+        if (opponent->type==Torn && level<10)level++;
+        if (opponent->type==Queen) opponent->gil=gil;
+        if (opponent->type==Omega){
+            if (hp==maxhp){ // win branch
+                level=10;
+                gil=999;
+            }
+            else { // lose branch
+                hp=0;
+                modify_hp();
+                return 0;
+            }
+        }
+        return 1;
+    }
+    else{
+        if (opponent->type==Torn){
+            if (be_Poison){
+                for (int i=0; i<3; i++){
+                    bag->front();
+                }
+                hp=hp-10;
+                modify_hp();
+            }
+        }
+        else if (opponent->type==Queen) gil=gil/2;
+        else if (opponent->type==Ha) {
+            hp=0;
+            modify_hp();
+        }
+        else{
+            hp=hp - opponent->baseDmg*(opponent->lvo-level);
+            modify_hp();
+        }
+        return 0;
+    }
 }
 
 DragonKnight::DragonKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
@@ -300,8 +711,34 @@ DragonKnight::DragonKnight(int id, int maxhp, int level, int gil, int antidote, 
 }
 
 bool DragonKnight::fight(BaseOpponent * opponent){
-    //hmm
-    return 1;
+    if (opponent->type==Ulti){
+        opponent->hp-=(hp*level*0.075);
+        if (opponent->hp <= 0) return 1;
+        hp=0;
+        return 0;
+    }
+    if (opponent->type==Omega){
+        level=10;
+        gil=999;
+        return 1;
+    }
+    if (this->level>=opponent->lvo){
+        if (opponent->type==Torn && level<10)level++;
+        if (opponent->type==Queen) opponent->gil=gil;
+        return 1;
+    }
+    else{
+        if (opponent->type==Queen) gil=gil/2;
+        else if (opponent->type==Ha) {
+            hp=0;
+            modify_hp();
+        }
+        else{
+            hp=hp - opponent->baseDmg*(opponent->lvo-level);
+            modify_hp();
+        }
+        return 0;
+    }
 }
 
 NormalKnight::NormalKnight(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) : BaseKnight(id, maxhp, level, gil, antidote, phoenixdownI){
@@ -310,15 +747,46 @@ NormalKnight::NormalKnight(int id, int maxhp, int level, int gil, int antidote, 
 }
 
 bool NormalKnight::fight(BaseOpponent * opponent){
+    if (opponent->type==Ulti){
+        hp=0;
+        return 0;
+    }
     if (this->level>=opponent->lvo){
+        if (opponent->type==Torn && level<10)level++;
+        if (opponent->type==Queen) opponent->gil=gil;
+        if (opponent->type==Omega){
+            if (hp==maxhp){ // win branch
+                level=10;
+                gil=999;
+            }
+            else { // lose branch
+                hp=0;
+                modify_hp();
+                return 0;
+            }
+        }
         return 1;
     }
     else{
-        hp=hp - opponent->baseDmg*(opponent->lvo-level);
-        if (hp<=0){
-            
+        if (opponent->type==Torn){
+            if (be_Poison){
+                for (int i=0; i<3; i++){
+                    bag->front();
+                }
+                hp=hp-10;
+                modify_hp();
+            }
         }
-        return 1;
+        else if (opponent->type==Queen) gil=gil/2;
+        else if (opponent->type==Ha) {
+            hp=0;
+            modify_hp();
+        }
+        else{
+            hp=hp - opponent->baseDmg*(opponent->lvo-level);
+            modify_hp();
+        }
+        return 0;
     }
 }
 /* * * END implementation of class BaseKnight * * */
@@ -357,12 +825,20 @@ bool ArmyKnights::fight(BaseOpponent * opponent){
     if (curKnight==nullptr) return 0;
     if(curKnight->fight(opponent)){
         gain_gil(opponent->gil);
-        delete opponent;
-        return 1;
+        if (opponent->type==Ha){
+            shield=1;
+            num_of_tresure++;
+        }
     }
     else{
-
+        if (curKnight->is_dead()){
+            back();
+            if(armyNum==0) return 0;
+        }
+        if (opponent->type==Ulti) return fight(opponent);
     }
+    delete opponent;
+    return 1;
 }
 
 bool ArmyKnights::adventure(Events * events){
@@ -372,44 +848,101 @@ bool ArmyKnights::adventure(Events * events){
         {
         case 1: // MadBear
             BaseOpponent*opponent=new MadBear(i, curEvent);
-            if(!fight(opponent)) return false;
+            fight(opponent);
             break;
         case 2: // Bandit
             BaseOpponent*opponent=new Bandit(i, curEvent);
-            if(!fight(opponent)) return false;
+            fight(opponent);
             break;
         case 3: // LordLupin
             BaseOpponent*opponent=new LordLupin(i, curEvent);
-            if(!fight(opponent)) return false;
+            fight(opponent);
             break;
         case 4: // Elf
             BaseOpponent*opponent=new Elf(i, curEvent);
-            if(!fight(opponent)) return false;
+            fight(opponent);
             break;
         case 5: // Troll
             BaseOpponent*opponent=new Troll(i, curEvent);
-            if(!fight(opponent)) return false;
+            fight(opponent);
             break;
         case 6: // Tornbery
+            BaseOpponent*opponent=new Tornbery(i, curEvent);
+            fight(opponent);
+            break;
         case 7: // Queen of Cards
+            BaseOpponent*opponent=new QueenOfCards(i, curEvent);
+            fight(opponent);
+            break;
         case 8: // Nina de Rings
+            BaseKnight * curKnight = lastKnight();
+            curKnight->nina_de_rings();
         case 9: // VuonSauRieng
+            BaseKnight * curKnight = lastKnight();
+            curKnight->sau_rieng();
         case 10: // Omega Weapon
+            if(!meet_Omega){
+                BaseOpponent*opponent=new OmegaWeapon(i, curEvent);
+                fight(opponent);
+                meet_Omega=1;
+            }
+            break;
         case 11: // Hades
+            if(!meet_Hades){
+                BaseOpponent*opponent=new OmegaWeapon(i, curEvent);
+                fight(opponent);
+                meet_Hades=1;
+            }
+            break;
         case 112: // Pho II
+            BaseItem * item = new PhoenixDown(PhoII);
+            pick_Item(item);
+            break;
         case 113: // Pho III
+            BaseItem * item = new PhoenixDown(PhoIII);
+            pick_Item(item);
+            break;
         case 114: // Pho IV
+            BaseItem * item = new PhoenixDown(PhoIV);
+            pick_Item(item);
+            break;
         case 95: // Pick up Paladin's shield
+            if (!shield){
+                shield=1;
+                num_of_tresure++;
+            }
+            break;
         case 96: // Pick up Lancelot's spear
+            if (!spear){
+                spear=1;
+                num_of_tresure++;
+            }
+            break;
         case 97: // Pick up Guinevere's hairpiece
+            if (!hairpiece){
+                hairpiece=1;
+                num_of_tresure++;
+            }
+            break;
         case 98: // Excalibur
+            if (num_of_tresure==3){
+                sword=1;
+            }
+            break;
         case 99: // win Ultimecia, or lose, maybe
-
-            return true;
+            if (sword) return true;
+            else if(num_of_tresure==3){
+                BaseOpponent*opponent=new Ultimecia(i, curEvent);
+                if(fight(opponent))return true;
+                else return false;
+            }
+            else return false;
         default:
-            cout << "The current event is invalid. Please check input again!";
+            cout << "The event "<< i <<" is invalid. Please check input again!";
             break;
         }
+        if (armyNum==0) return false;
+        printInfo();
     }
     return false; //not defeat Ultimecia still the last event
 }
@@ -438,24 +971,25 @@ void ArmyKnights::back(){
     else if (armyNum==1){
         delete head;
         head=tail=nullptr;
+        armyNum=0;
     }
     else{
         BaseKnight *hold = lastKnight();
         tail = tail->pre;
         tail->next=nullptr;
         delete hold;
+        armyNum--;
     }
 }
 
 void ArmyKnights::pick_Item(BaseItem * item) const{
     BaseKnight * tmp=tail;
     while (tmp!=nullptr){
-        if (item->canUse(tmp)){
+        if (item->canAddI(tmp)){
             return;
         }
         tmp=tmp->pre;
     }
-    delete item;
 }
 
 void ArmyKnights::gain_gil(int cash)const{
@@ -473,23 +1007,19 @@ BaseKnight *ArmyKnights:: lastKnight() const{
 }
 
 bool ArmyKnights::hasPaladinShield()const{
-    //hmm
-    return 1;
+    return shield;
 }
 
 bool ArmyKnights::hasLancelotSpear()const{
-    //hmm
-    return 1;
+    return spear;
 }
 
 bool ArmyKnights::hasGuinevereHair() const{
-    //hmm
-    return 1;
+    return hairpiece;
 }
 
 bool ArmyKnights::hasExcaliburSword() const{
-    //hmm
-    return 1;
+    return sword;
 }
 
 void ArmyKnights::printInfo() const {
@@ -542,8 +1072,8 @@ void KnightAdventure::run(){
     cout << "Event: ";
     events->printEvent();
     cout << "run!!!"<<endl;
-    //bool win = armyKnights->adventure(events);
-    //armyKnights->printResult(win);
+    bool win = armyKnights->adventure(events);
+    armyKnights->printResult(win);
 }
 
 /* * * END implementation of class KnightAdventure * * */
@@ -564,7 +1094,7 @@ Events::Events(const string &file_events){
     else cout << "Cannot open the f*cking file!"<<endl;
 }
 Events::~Events(){
-    delete [] eArr;
+    delete eArr;
     eArr=nullptr;
     cout << "deleted Event"<<endl;
 }
