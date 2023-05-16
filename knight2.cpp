@@ -213,26 +213,20 @@ string BaseBag::toString()const{
     string list_item="";
     BaseItem * tmp=head;
     while (tmp!=nullptr){
-        ItemType type=tmp->type;
-        switch (type)
-        {
-        case Anti:
+        if (tmp->type==Anti){
             list_item+="Antidote,";
-            break;
-        case PhoI:
+        }
+        else if (tmp->type==PhoI){
             list_item+="PhoenixI,";
-            break;
-        case PhoII:
+        }
+        else if (tmp->type==PhoII){
             list_item+="PhoenixII,";
-            break;
-        case PhoIII:
+        }
+        else if (tmp->type==PhoIII){
             list_item+="PhoenixIII,";
-            break;
-        case PhoIV:
+        }
+        else if (tmp->type==PhoIV){
             list_item+="PhoenixIV,";
-            break;
-        default:
-            break;
         }
         tmp=tmp->next;
     }
@@ -300,8 +294,8 @@ bool BaseItem::canAddI(BaseKnight *knight){
 }
 
 Antidote::Antidote(){
-        type=Anti;
-    }
+    type=Anti;
+}
 bool Antidote::canUse (BaseKnight *knight){
     // do nth
     return 1;
