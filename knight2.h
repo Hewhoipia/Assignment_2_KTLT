@@ -160,6 +160,20 @@ public:
     virtual void use ( BaseKnight * knight )=0;
 };
 
+class Antidote:public BaseItem{
+public:
+    Antidote();
+    bool canUse (BaseKnight *knight);
+    void use ( BaseKnight * knight );
+};
+
+class PhoenixDown:public BaseItem{
+public:
+    PhoenixDown(ItemType Pho_Type);
+    bool canUse (BaseKnight *knight);
+    void use ( BaseKnight * knight );
+};
+
 class Events {
 private:
     int* eArr=nullptr;

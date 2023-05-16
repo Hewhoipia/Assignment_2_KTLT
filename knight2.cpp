@@ -27,12 +27,11 @@ static bool pythago(int num){
 /* * * BEGIN implementation of class BaseBag * * */
 
 bool BaseBag::insertFirst(BaseItem * item){
-    // do sth
-    return 0;
-}
-
-string BaseBag::toString()const{
-    return "bag";
+    BaseItem *hold=head;
+    head = item;
+    head->next=hold;
+    if(hold!=nullptr)hold->pre=head;
+    curItems++;
 }
 
 BaseBag::BaseBag(int PhoxeI, int Antinek){
@@ -60,14 +59,6 @@ BaseBag::~BaseBag(){
     }
     head=nullptr;
     cout << "deleted Bag\n";
-}
-
-bool BaseBag::insertFirst(BaseItem * item){
-    BaseItem *hold=head;
-    head = item;
-    head->next=hold;
-    if(hold!=nullptr)hold->pre=head;
-    curItems++;
 }
 
 BaseItem* BaseBag::get (ItemType itemType){
@@ -296,6 +287,7 @@ void BaseBag::front(){
 /* * * END implementation of class BaseBag * * */
 
 /* * * BEGIN implementation of class BaseItem * * */
+BaseItem::BaseItem(){}
 
 BaseItem::~BaseItem(){
     cout << "deleted Item"<<endl;
@@ -306,33 +298,27 @@ bool BaseItem::canAddI(BaseKnight *knight){
     return 0;
 }
 
-class Antidote:public BaseItem{
-public:
-    Antidote(){
+Antidote::Antidote(){
         type=Anti;
     }
-    bool canUse (BaseKnight *knight){
-        // do nth
-        return 1;
-    }
-    void use ( BaseKnight * knight ){
-        // nothing here
-    }
-};
+bool Antidote::canUse (BaseKnight *knight){
+    // do nth
+    return 1;
+}
+void Antidote::use ( BaseKnight * knight ){
+    // nothing here
+}
 
-class PhoenixDown:public BaseItem{
-public:
-    PhoenixDown(ItemType Pho_Type){
-        type=Pho_Type;
-    }
-    bool canUse (BaseKnight *knight){
-        // do nth
-        return 1;
-    }
-    void use ( BaseKnight * knight ){
-        // nothing here
-    }
-};
+PhoenixDown::PhoenixDown(ItemType Pho_Type){
+    type=Pho_Type;
+}
+bool PhoenixDown::canUse (BaseKnight *knight){
+    // do nth
+    return 1;
+}
+void PhoenixDown::use ( BaseKnight * knight ){
+    // nothing here
+}
 
 /* * * END implementation of class BaseItem * * */
 
@@ -632,7 +618,7 @@ bool PaladinKnight::fight(BaseOpponent * opponent){
     }
     else{
         if (opponent->type==Torn){
-            if (be_Poison){
+            if (be_Poison()){
                 for (int i=0; i<3; i++){
                     bag->front();
                 }
@@ -684,7 +670,7 @@ bool LancelotKnight::fight (BaseOpponent * opponent){
     }
     else{
         if (opponent->type==Torn){
-            if (be_Poison){
+            if (be_Poison()){
                 for (int i=0; i<3; i++){
                     bag->front();
                 }
@@ -769,7 +755,7 @@ bool NormalKnight::fight(BaseOpponent * opponent){
     }
     else{
         if (opponent->type==Torn){
-            if (be_Poison){
+            if (be_Poison()){
                 for (int i=0; i<3; i++){
                     bag->front();
                 }
@@ -843,35 +829,36 @@ bool ArmyKnights::fight(BaseOpponent * opponent){
 
 bool ArmyKnights::adventure(Events * events){
     for (int i=0; i<events->count(); i++){
+        BaseOpponent*opponent=nullptr;
         int curEvent = events->get (i);
         switch (curEvent)
         {
         case 1: // MadBear
-            BaseOpponent*opponent=new MadBear(i, curEvent);
+            opponent=new MadBear(i, curEvent);
             fight(opponent);
             break;
         case 2: // Bandit
-            BaseOpponent*opponent=new Bandit(i, curEvent);
+            opponent=new Bandit(i, curEvent);
             fight(opponent);
             break;
         case 3: // LordLupin
-            BaseOpponent*opponent=new LordLupin(i, curEvent);
+            opponent=new LordLupin(i, curEvent);
             fight(opponent);
             break;
         case 4: // Elf
-            BaseOpponent*opponent=new Elf(i, curEvent);
+            opponent=new Elf(i, curEvent);
             fight(opponent);
             break;
         case 5: // Troll
-            BaseOpponent*opponent=new Troll(i, curEvent);
+            opponent=new Troll(i, curEvent);
             fight(opponent);
             break;
         case 6: // Tornbery
-            BaseOpponent*opponent=new Tornbery(i, curEvent);
+            opponent=new Tornbery(i, curEvent);
             fight(opponent);
             break;
         case 7: // Queen of Cards
-            BaseOpponent*opponent=new QueenOfCards(i, curEvent);
+            opponent=new QueenOfCards(i, curEvent);
             fight(opponent);
             break;
         case 8: // Nina de Rings
@@ -882,14 +869,14 @@ bool ArmyKnights::adventure(Events * events){
             curKnight->sau_rieng();
         case 10: // Omega Weapon
             if(!meet_Omega){
-                BaseOpponent*opponent=new OmegaWeapon(i, curEvent);
+                opponent=new OmegaWeapon(i, curEvent);
                 fight(opponent);
                 meet_Omega=1;
             }
             break;
         case 11: // Hades
             if(!meet_Hades){
-                BaseOpponent*opponent=new OmegaWeapon(i, curEvent);
+                opponent=new OmegaWeapon(i, curEvent);
                 fight(opponent);
                 meet_Hades=1;
             }
@@ -932,7 +919,7 @@ bool ArmyKnights::adventure(Events * events){
         case 99: // win Ultimecia, or lose, maybe
             if (sword) return true;
             else if(num_of_tresure==3){
-                BaseOpponent*opponent=new Ultimecia(i, curEvent);
+                opponent=new Ultimecia(i, curEvent);
                 if(fight(opponent))return true;
                 else return false;
             }
