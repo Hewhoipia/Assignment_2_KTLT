@@ -231,7 +231,7 @@ string BaseBag::toString()const{
         if (tmp->next!=nullptr) list_item+=",";
         tmp=tmp->next;
     }
-    string s="Bag[count=" + to_string(nItem) + (char)59 + list_item + "]";
+    string s="Bag[count=" + to_string(curItems) + (char)59 + list_item + "]";
     //cout << "listItem: " << list_item << endl;
     //cout << "to_string_bag: " << s << endl;
     return s;
