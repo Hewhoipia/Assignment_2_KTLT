@@ -1089,7 +1089,7 @@ Events::Events(const string &file_events){
         myFile >> eNum;
         string endLine;
         getline (myFile, endLine);
-        eArr=new int();
+        eArr=new int[eNum];
         for (int i=0; i<eNum; i++){
             myFile >> eArr[i];
         }
@@ -1098,7 +1098,7 @@ Events::Events(const string &file_events){
     else cout << "Cannot open the f*cking file!"<<endl;
 }
 Events::~Events(){
-    delete eArr;
+    delete [] eArr;
     eArr=nullptr;
     //cout << "deleted Event"<<endl;
 }
