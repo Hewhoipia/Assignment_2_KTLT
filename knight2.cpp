@@ -233,7 +233,9 @@ string BaseBag::toString()const{
     if (curItems > 0){
         list_item.erase(list_item.end());
     }
-    string s="Bag[count=" + nItem + (char)59 + list_item + "]";
+    string s="Bag[count=" + to_string(nItem) + (char)59 + list_item + "]";
+    //cout << "listItem: " << list_item << endl;
+    //cout << "to_string_bag: " << s << endl;
     return s;
 }
 
@@ -1070,7 +1072,6 @@ Events::Events(const string &file_events){
     if (myFile.is_open()){
         myFile >> eNum;
         string endLine;
-        getline (myFile, endLine);
         getline (myFile, endLine);
         eArr=new int();
         for (int i=0; i<eNum; i++){
