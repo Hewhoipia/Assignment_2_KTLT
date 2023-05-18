@@ -963,19 +963,28 @@ bool ArmyKnights::adventure(Events * events){
             }
             break;
         case 99: // win Ultimecia, or lose, maybe
-            if (sword) return true;
+            if (sword){
+                printInfo();
+                return true;
+            }
             else if(num_of_tresure==3){
                 opponent=new Ultimecia(i, curEvent);
-                if(fight(opponent))return true;
-                else return false;
+                if(fight(opponent)){
+                    printInfo();
+                    return true;
+                }
+                else{
+                    printInfo();
+                    return false;
+                }
             }
             else return false;
         default:
             cout << "The event "<< i <<" is invalid. Please check input again!\n";
             break;
         }
-        if (armyNum==0) return false;
         printInfo();
+        if (armyNum==0) return false;
     }
     return false; //not defeat Ultimecia still the last event
 }
