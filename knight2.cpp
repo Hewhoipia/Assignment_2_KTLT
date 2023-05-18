@@ -219,8 +219,8 @@ string BaseBag::toString()const{
         tmp=tmp->next;
     }
     string s="Bag[count=" + to_string(curItems) + (char)59 + list_item + "]";
-    //cout << "listItem: " << list_item << endl;
-    //cout << "to_string_bag: " << s << endl;
+    //cout << "listItem: " << list_item << "\n";
+    //cout << "to_string_bag: " << s << "\n";
     return s;
 }
 
@@ -316,7 +316,7 @@ void BaseBag::front(){
 BaseItem::BaseItem(){}
 
 BaseItem::~BaseItem(){
-    //cout << "deleted Item"<<endl;
+    //cout << "deleted Item"<<"\n";
 }
 
 bool BaseItem::canAddI(BaseKnight *knight){
@@ -479,7 +479,7 @@ BaseKnight::BaseKnight(int id, int maxhp, int level, int gil, int antidote, int 
 BaseKnight::~BaseKnight(){
     delete bag;
     bag=nullptr;
-    //cout << "deleted BaseKnight"<<endl;
+    //cout << "deleted BaseKnight\n";
 }
 
 bool BaseKnight::can_Add(BaseItem * item){
@@ -833,7 +833,7 @@ ArmyKnights::ArmyKnights(const string & file_armyknights){
         }
         myFile.close();
     }
-    else cout << "Cannot open the f*cking file!"<<endl;
+    else cout << "Cannot open the f*cking file!"<<"\n";
 }
 ArmyKnights::~ArmyKnights(){
     BaseKnight *next=nullptr;
@@ -845,7 +845,7 @@ ArmyKnights::~ArmyKnights(){
     }
     head=nullptr;
     tail=nullptr;
-    //cout << "deleted ArmyKnight"<<endl;
+    //cout << "deleted ArmyKnight"<<"\n";
 }
 
 bool ArmyKnights::fight(BaseOpponent * opponent){
@@ -1104,7 +1104,7 @@ void KnightAdventure::run(){
     //armyKnights->printALL();
     //cout << "Event: ";
     //events->printEvent();
-    //cout << "run!!!"<<endl;
+    //cout << "run!!!"<<"\n";
     bool win = armyKnights->adventure(events);
     armyKnights->printResult(win);
 }
@@ -1124,12 +1124,12 @@ Events::Events(const string &file_events){
         }
         myFile.close();
     }
-    else cout << "Cannot open the f*cking file!"<<endl;
+    else cout << "Cannot open the f*cking file!"<<"\n";
 }
 Events::~Events(){
     delete [] eArr;
     eArr=nullptr;
-    //cout << "deleted Event"<<endl;
+    //cout << "deleted Event"<<"\n";
 }
 int Events::count() const{
     return eNum;
@@ -1141,6 +1141,6 @@ void Events::printEvent() const{
     for (int i=0; i<eNum; i++){
         cout << eArr[i] << " ";
     }
-    cout << endl;
+    cout << "\n";
 }
 /* * * END implementation of class Events * * */
