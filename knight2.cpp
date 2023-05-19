@@ -639,23 +639,24 @@ bool PaladinKnight::fight(BaseOpponent * opponent){
         hp=0;
         return 0;
     }
+    if (opponent->type==Omega){
+        if (hp==maxhp && this->level>=10){ // win branch
+            level=10;
+            gil=999;
+            return 1;
+        }
+        else { // lose branch
+            hp=0;
+            modify_hp();
+            return 0;
+        }
+    }
     if (opponent->type==MB || opponent->type==Ban || opponent->type==Lupin
         || opponent->type==E || opponent->type==Tr) return 1;
     if (opponent->type==Ha && level>=8) return 1;
     if (this->level>=opponent->lvo){
         if (opponent->type==Torn && level<10)level++;
         if (opponent->type==Queen) opponent->gil=gil;
-        if (opponent->type==Omega){
-            if (hp==maxhp){ // win branch
-                level=10;
-                gil=999;
-            }
-            else { // lose branch
-                hp=0;
-                modify_hp();
-                return 0;
-            }
-        }
         return 1;
     }
     else{
@@ -692,22 +693,23 @@ bool LancelotKnight::fight (BaseOpponent * opponent){
         hp=0;
         return 0;
     }
+    if (opponent->type==Omega){
+        if (hp==maxhp && this->level>=10){ // win branch
+            level=10;
+            gil=999;
+            return 1;
+        }
+        else { // lose branch
+            hp=0;
+            modify_hp();
+            return 0;
+        }
+    }
     if (opponent->type==MB || opponent->type==Ban || opponent->type==Lupin
         || opponent->type==E || opponent->type==Tr) return 1;
     if (this->level>=opponent->lvo){
         if (opponent->type==Torn && level<10)level++;
         if (opponent->type==Queen) opponent->gil=gil;
-        if (opponent->type==Omega){
-            if (hp==maxhp){ // win branch
-                level=10;
-                gil=999;
-            }
-            else { // lose branch
-                hp=0;
-                modify_hp();
-                return 0;
-            }
-        }
         return 1;
     }
     else{
@@ -779,20 +781,21 @@ bool NormalKnight::fight(BaseOpponent * opponent){
         hp=0;
         return 0;
     }
+    if (opponent->type==Omega){
+        if (hp==maxhp && this->level>=10){ // win branch
+            level=10;
+            gil=999;
+            return 1;
+        }
+        else { // lose branch
+            hp=0;
+            modify_hp();
+            return 0;
+        }
+    }
     if (this->level>=opponent->lvo){
         if (opponent->type==Torn && level<10)level++;
         if (opponent->type==Queen) opponent->gil=gil;
-        if (opponent->type==Omega){
-            if (hp==maxhp){ // win branch
-                level=10;
-                gil=999;
-            }
-            else { // lose branch
-                hp=0;
-                modify_hp();
-                return 0;
-            }
-        }
         return 1;
     }
     else{
@@ -853,7 +856,7 @@ bool ArmyKnights::fight(BaseOpponent * opponent){
     if (curKnight==nullptr) return 0;
     if(curKnight->fight(opponent)){
         gain_gil(opponent->gil);
-        if (opponent->type==Ha){
+        if (opponent->type==Ha && !shield){
             shield=1;
             num_of_tresure++;
         }
@@ -958,7 +961,7 @@ bool ArmyKnights::adventure(Events * events){
             }
             break;
         case 98: // Excalibur
-            if (num_of_tresure==3){
+            if (num_of_tresure>=3){
                 sword=1;
             }
             break;
@@ -967,7 +970,7 @@ bool ArmyKnights::adventure(Events * events){
                 printInfo();
                 return true;
             }
-            else if(num_of_tresure==3){
+            else if(num_of_tresure>=3){
                 opponent=new Ultimecia(i, curEvent);
                 if(fight(opponent)){
                     printInfo();
